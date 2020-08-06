@@ -1,11 +1,13 @@
 package com.example.gitaplication.userDetails
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Controller
 import com.example.gitaplication.R
+import com.example.gitaplication.login.LoginAction
 import com.example.gitaplication.models.User
 import com.example.gitaplication.userDetails.di.fetchModule
 import com.multiplatform.play.Action
@@ -66,7 +68,6 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
         scene.dispatch(UserDetailsAction.FetchRepos(user.username))
         scene.dispatch(UserDetailsAction.FetchFollowing(user.username))
         scene.dispatch(UserDetailsAction.FetchFollowers(user.username))
-        scene.dispatch(UserDetailsAction.FetchUser(user.username))
 
         userDetailsView.init(scene)
 
@@ -79,6 +80,24 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
     }
 
     private fun errorHandlingSpectator(action: Action, state: UserDetailsState): Boolean {
+
+        if (action is UserDetailsAction.FetchRepos.Reaction.Error) {
+            when (action.error) {
+                else -> Log.e("Fetch Repos", "Message: ${action.error.localizedMessage}")
+            }
+        }
+
+        if (action is UserDetailsAction.FetchFollowing.Reaction.Error) {
+            when (action.error) {
+                else -> Log.e("Fetch Following", "Message: ${action.error.localizedMessage}")
+            }
+        }
+
+        if (action is UserDetailsAction.FetchFollowing.Reaction.Error) {
+            when (action.error) {
+                else -> Log.e("Fetch Followers", "Message: ${action.error.localizedMessage}")
+            }
+        }
 
         return false
     }
