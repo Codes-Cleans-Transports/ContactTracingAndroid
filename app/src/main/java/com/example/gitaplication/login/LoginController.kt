@@ -59,6 +59,16 @@ class LoginController : Controller(), DIAware {
 
     private fun navigationSpectator(action: Action, state: LoginState): Boolean {
 
+        if(state.loggedInUser!=null){
+            router.setRoot(
+                RouterTransaction.with(
+                    UserDetailsController(
+                        bundleOf("user" to state.loggedInUser)
+                    )
+                )
+            )
+        }
+
         if (action is LoginAction.Login.Reaction.LoggedIn) {
             router.setRoot(
                 RouterTransaction.with(
