@@ -26,13 +26,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/repo_name" />
 
-    <ImageView
+    <TextView
         android:id="@+id/forks_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:contentDescription="@string/forks_description"
-        android:src="@drawable/ic_github_forked"
+        android:text="@string/forks"
+        android:textColor="@color/blue"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/repo_description" />
 
@@ -45,14 +46,15 @@
         app:layout_constraintLeft_toRightOf="@id/forks_img"
         app:layout_constraintTop_toBottomOf="@id/repo_description" />
 
-    <ImageView
+    <TextView
         android:id="@+id/watchers_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="15dp"
         android:contentDescription="@string/watchers_description"
-        android:src="@drawable/ic_github_eye"
+        android:text="@string/watchers"
+        android:textColor="@color/blue"
         app:layout_constraintLeft_toRightOf="@id/forks_count"
         app:layout_constraintTop_toBottomOf="@+id/repo_description" />
 

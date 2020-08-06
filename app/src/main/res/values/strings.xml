@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Git Aplication</string>
+    <string name="app_name">Git Application</string>
     <string name="login">Login</string>
     <string name="username">Username</string>
 
@@ -13,4 +13,6 @@
     <string name="following">Following</string>
     <string name="followers">Followers</string>
     <string name="repos">Repos</string>
+    <string name="watchers">watchers:</string>
+    <string name="forks">forks:</string>
 </resources>

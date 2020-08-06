@@ -58,8 +58,6 @@ sealed class UserDetailsAction : Action {
 
         }
     }
-
-    class Logout(): Reaction
 }
 
 object UserDetailsStateTransformer: StateTransformer<UserDetailsState>{
@@ -138,12 +136,6 @@ class UserDetailsActor(
                         is Result.Success -> react(UserDetailsAction.FetchUser.Reaction.Success(result.data))
                         is Result.Error -> react(UserDetailsAction.FetchUser.Reaction.Error(result.error))
                     }
-                }
-            }
-
-            is UserDetailsAction.Logout ->{
-                scope.launch(Dispatchers.Main) {
-                    TODO()
                 }
             }
         }
