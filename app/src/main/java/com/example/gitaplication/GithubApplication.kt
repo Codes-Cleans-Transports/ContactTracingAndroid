@@ -16,7 +16,5 @@ class GithubApplication : Application(), DIAware {
 
     override fun onCreate() {
         super.onCreate()
-
-
     }
 }

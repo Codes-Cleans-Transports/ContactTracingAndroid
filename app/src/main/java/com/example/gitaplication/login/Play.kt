@@ -33,16 +33,7 @@ sealed class LoginAction : Action {
         }
     }
 
-    object AutoLogin : LoginAction() {
-
-        sealed class Reaction : com.multiplatform.play.Reaction {
-
-            class LoggedIn(val user: User) : Reaction()
-
-            class Failed(val error: Throwable) : Reaction()
-
-        }
-    }
+    object AutoLogin : LoginAction()
 }
 
 /* State transformer */
@@ -86,7 +77,6 @@ class LoginActor(
                 scope.launch(Dispatchers.Main) {
                     when (val result = autoLoginUseCase()) {
                         is Result.Success -> react(LoginAction.Login.Reaction.LoggedIn(result.data))
-                        is Result.Error -> react(LoginAction.Login.Reaction.Failed(result.error))
                     }
                 }
             }
