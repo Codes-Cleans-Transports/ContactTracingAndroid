@@ -66,6 +66,11 @@ class UserDetailsView @JvmOverloads constructor(
     }
 
     override fun render(state: UserDetailsState, diff: Diff<UserDetailsState>) {
+
+        if(diff.by{it.isItFetching}){
+                detailsProgressIndicator.visibility = if (state.isItFetching) View.VISIBLE else View.GONE
+        }
+
         if (diff.by { it.repos }) {
             repoAdapter.submitList(state.repos)
             recycler_list.adapter= repoAdapter

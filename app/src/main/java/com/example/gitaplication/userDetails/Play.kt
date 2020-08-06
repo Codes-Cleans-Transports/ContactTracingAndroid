@@ -13,21 +13,12 @@ data class UserDetailsState(
     val user: User,
     val repos: List<Data>? = null,
     val followers: List<UserList>? = null,
-    val following: List<UserList>? = null
+    val following: List<UserList>? = null,
+    val isItFetching: Boolean = false
 )
 
 sealed class UserDetailsAction : Action {
 
-    class FetchUser(val username: String) : UserDetailsAction() {
-
-        sealed class Reaction : com.multiplatform.play.Reaction {
-
-            class Success(val user: User) : Reaction()
-
-            class Error(val error: Throwable) : Reaction()
-
-        }
-    }
     class FetchRepos(val username: String) : UserDetailsAction() {
 
         sealed class Reaction : com.multiplatform.play.Reaction {
@@ -38,6 +29,7 @@ sealed class UserDetailsAction : Action {
 
         }
     }
+
     class FetchFollowers(val username: String) : UserDetailsAction() {
 
         sealed class Reaction : com.multiplatform.play.Reaction {
@@ -62,7 +54,11 @@ sealed class UserDetailsAction : Action {
 
 object UserDetailsStateTransformer: StateTransformer<UserDetailsState>{
     override fun invoke(state: UserDetailsState, action: Action): UserDetailsState = when(action){
+        is UserDetailsAction.FetchRepos->state.copy(
+            isItFetching = true
+        )
         is UserDetailsAction.FetchRepos.Reaction.Success ->state.copy(
+            isItFetching = false,
             repos = action.repos
         )
         is UserDetailsAction.FetchFollowers.Reaction.Success ->state.copy(
@@ -70,9 +66,6 @@ object UserDetailsStateTransformer: StateTransformer<UserDetailsState>{
         )
         is UserDetailsAction.FetchFollowing.Reaction.Success ->state.copy(
             following = action.following
-        )
-        is UserDetailsAction.FetchUser.Reaction.Success ->state.copy(
-            user = action.user
         )
        else -> state
     }
@@ -128,16 +121,6 @@ class UserDetailsActor(
                 }
             }
 
-            is UserDetailsAction.FetchUser-> {
-
-                scope.launch(Dispatchers.Main) {
-
-                    when (val result = fetchUserUseCase(action.username)) {
-                        is Result.Success -> react(UserDetailsAction.FetchUser.Reaction.Success(result.data))
-                        is Result.Error -> react(UserDetailsAction.FetchUser.Reaction.Error(result.error))
-                    }
-                }
-            }
         }
     }
 }
