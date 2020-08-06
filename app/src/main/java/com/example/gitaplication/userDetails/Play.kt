@@ -1,5 +1,6 @@
 package com.example.gitaplication.userDetails
 
+import com.example.gitaplication.account.AccountManager
 import com.example.gitaplication.models.Data
 import com.example.gitaplication.models.User
 import com.example.gitaplication.models.UserList
@@ -82,12 +83,19 @@ class UserDetailsActor(
 
     private val fetchFollowingUseCase: FetchFollowingUseCase,
 
-    private val fetchFollowersUseCase: FetchFollowersUseCase
+    private val fetchFollowersUseCase: FetchFollowersUseCase,
+
+    private val accountManager: AccountManager
+
 ) : Actor<UserDetailsState> {
 
     override fun invoke(action: Action, state: UserDetailsState, react: React) {
 
         when (action) {
+
+            is UserDetailsAction.Logout->{
+                accountManager.deleteSavedAccount()
+            }
 
             is UserDetailsAction.FetchRepos-> {
 

@@ -7,4 +7,8 @@ val applicationModule = DI.Module("applicationModule") {
     import(httpModule)
 
     import(repositoryModule)
+
+    import(persistentStorageModule)
+
+    import(accountModule)
 }

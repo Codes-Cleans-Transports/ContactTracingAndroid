@@ -5,11 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.RouterTransaction
 import com.example.gitaplication.R
-import com.example.gitaplication.login.LoginAction
+import com.example.gitaplication.account.AccountManager
 import com.example.gitaplication.login.LoginController
 import com.example.gitaplication.models.User
 import com.example.gitaplication.userDetails.di.fetchModule
@@ -40,6 +39,7 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
 
         val view = inflater.inflate(R.layout.controller_userdetails, container, false)
 
+        val accountManager: AccountManager by instance()
 
         val fetchFollowersUseCase: FetchFollowersUseCase by instance()
 
@@ -47,7 +47,7 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
 
         val fetchReposUseCase: FetchReposUseCase by instance()
 
-        userDetailsView=view.findViewById(R.id.userDetails_view)
+        userDetailsView = view.findViewById(R.id.userDetails_view)
 
         scene = Scene(
             initialState = UserDetailsState(user = user),
@@ -56,7 +56,8 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
                 scope = GlobalScope,
                 fetchFollowersUseCase = fetchFollowersUseCase,
                 fetchReposUseCase = fetchReposUseCase,
-                fetchFollowingUseCase = fetchFollowingUseCase
+                fetchFollowingUseCase = fetchFollowingUseCase,
+                accountManager = accountManager
             ),
             spectators = listOf(
                 ::navigationSpectator,
@@ -79,7 +80,7 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
         if (action is UserDetailsAction.Logout) {
             router.setRoot(
                 RouterTransaction.with(
-                   LoginController()
+                    LoginController()
                 )
             )
         }
