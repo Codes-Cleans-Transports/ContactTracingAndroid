@@ -5,9 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import com.bluelinelabs.conductor.Controller
+import com.bluelinelabs.conductor.RouterTransaction
 import com.example.gitaplication.R
 import com.example.gitaplication.login.LoginAction
+import com.example.gitaplication.login.LoginController
 import com.example.gitaplication.models.User
 import com.example.gitaplication.userDetails.di.fetchModule
 import com.multiplatform.play.Action
@@ -38,8 +41,6 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
         val view = inflater.inflate(R.layout.controller_userdetails, container, false)
 
 
-        val fetchUserUseCase: FetchUserUseCase by instance()
-
         val fetchFollowersUseCase: FetchFollowersUseCase by instance()
 
         val fetchFollowingUseCase: FetchFollowingUseCase by instance()
@@ -55,8 +56,7 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
                 scope = GlobalScope,
                 fetchFollowersUseCase = fetchFollowersUseCase,
                 fetchReposUseCase = fetchReposUseCase,
-                fetchFollowingUseCase = fetchFollowingUseCase,
-                fetchUserUseCase = fetchUserUseCase
+                fetchFollowingUseCase = fetchFollowingUseCase
             ),
             spectators = listOf(
                 ::navigationSpectator,
@@ -75,6 +75,14 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
     }
 
     private fun navigationSpectator(action: Action, state: UserDetailsState): Boolean {
+
+        if (action is UserDetailsAction.Logout) {
+            router.setRoot(
+                RouterTransaction.with(
+                   LoginController()
+                )
+            )
+        }
 
         return false
     }

@@ -50,6 +50,9 @@ sealed class UserDetailsAction : Action {
 
         }
     }
+
+    object Logout : UserDetailsAction()
+
 }
 
 object UserDetailsStateTransformer: StateTransformer<UserDetailsState>{
@@ -79,9 +82,7 @@ class UserDetailsActor(
 
     private val fetchFollowingUseCase: FetchFollowingUseCase,
 
-    private val fetchFollowersUseCase: FetchFollowersUseCase,
-
-    private val fetchUserUseCase: FetchUserUseCase
+    private val fetchFollowersUseCase: FetchFollowersUseCase
 ) : Actor<UserDetailsState> {
 
     override fun invoke(action: Action, state: UserDetailsState, react: React) {

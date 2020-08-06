@@ -50,6 +50,10 @@ class UserDetailsView @JvmOverloads constructor(
             recycler_list.adapter= repoAdapter
         }
 
+        logout_button.setOnClickListener {
+            dispatchAction(UserDetailsAction.Logout)
+        }
+
         initRecycleView(recycler_list)
     }
 
