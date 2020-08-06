@@ -14,6 +14,7 @@ import com.example.gitaplication.R
 import com.example.gitaplication.login.LoginAction
 import com.example.gitaplication.userDetails.recycleView.FollowRecyclerAdapter
 import com.example.gitaplication.userDetails.recycleView.ReposRecycleAdapter
+import com.example.gitaplication.userDetails.recycleView.TopSpacingItemDecoration
 import com.multiplatform.util.Diff
 import kotlinx.android.synthetic.main.userdetails_view.view.*
 import kotlinx.android.synthetic.main.view_login.view.*
@@ -55,6 +56,8 @@ class UserDetailsView @JvmOverloads constructor(
     private fun initRecycleView(view: RecyclerView) {
         view.apply {
             layoutManager=LinearLayoutManager(context)
+            val topSpacingItemDecoration= TopSpacingItemDecoration(30)
+            addItemDecoration(topSpacingItemDecoration)
             repoAdapter= ReposRecycleAdapter()
             followersAdapter= FollowRecyclerAdapter()
             followingAdapter= FollowRecyclerAdapter()
