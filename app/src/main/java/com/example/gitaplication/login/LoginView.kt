@@ -34,8 +34,6 @@ class LoginView @JvmOverloads constructor(
             dispatchAction(LoginAction.Login(usernameEditText.text.toString()))
         }
 
-
-
         usernameEditText.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 this.hideKeyboard()

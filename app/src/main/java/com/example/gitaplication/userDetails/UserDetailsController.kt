@@ -110,9 +110,9 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
         return false
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
 
-        outState.putParcelable("user", user)
+        savedInstanceState.putParcelable("user", user)
     }
 }

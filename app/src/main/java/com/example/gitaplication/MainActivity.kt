@@ -16,6 +16,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         router = Conductor.attachRouter(this, findViewById(R.id.routerContainer), savedInstanceState)
 
-        router.setRoot(RouterTransaction.with(LoginController()))
+        if (!router.hasRootController()) {
+            router.setRoot(RouterTransaction.with(LoginController()))
+        }
     }
+
+    override fun onBackPressed() {
+        if (!router.handleBack()) {
+            super.onBackPressed()
+        }
+    }
+
 }
