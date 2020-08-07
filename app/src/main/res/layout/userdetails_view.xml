@@ -99,9 +99,11 @@
         android:background="@drawable/custom_button"
         android:text="@string/repos"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/followers"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_location"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintVertical_bias="0.106" />
 
     <Button
         android:id="@+id/followers"
@@ -110,8 +112,8 @@
         android:background="@drawable/custom_button"
         android:text="@string/followers"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintEnd_toStartOf="@+id/following"
+        app:layout_constraintHorizontal_bias="0.889"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_location"
         app:layout_constraintVertical_bias="0.106" />
@@ -120,7 +122,7 @@
         android:id="@+id/following"
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/custom_button"
         android:text="@string/following"
         app:layout_constraintBottom_toBottomOf="parent"
