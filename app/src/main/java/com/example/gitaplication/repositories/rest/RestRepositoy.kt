@@ -1,16 +1,16 @@
-package com.example.gitaplication.repositories
+package com.example.gitaplication.repositories.rest
 
-import com.example.gitaplication.dto.toRepo
-import com.example.gitaplication.dto.toUser
-import com.example.gitaplication.dto.toUserListItem
-import com.example.gitaplication.models.Data
+import com.example.gitaplication.repositories.rest.dto.toRepo
+import com.example.gitaplication.repositories.rest.dto.toUser
+import com.example.gitaplication.repositories.rest.dto.toUserListItem
+import com.example.gitaplication.models.Repo
 import com.example.gitaplication.models.User
 import com.example.gitaplication.models.UserList
-import com.example.gitaplication.services.GitHubService
+import com.example.gitaplication.repositories.Repository
 
 class RestRepository(
     private val restService: GitHubService
-) : Repository {
+) : RemoteRepository {
 
     override suspend fun getUser(username: String): User {
         val response = restService.getUser(username)
@@ -26,7 +26,7 @@ class RestRepository(
     }
 
     @Throws(Exception::class)
-    override suspend fun getRepos(username: String): List<Data> {
+    override suspend fun getRepos(username: String): List<Repo> {
         val response = restService.getRepos(username)
 
         return if (response.isSuccessful) {

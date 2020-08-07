@@ -1,7 +1,7 @@
 package com.example.gitaplication.userDetails
 
 import com.example.gitaplication.account.AccountManager
-import com.example.gitaplication.models.Data
+import com.example.gitaplication.models.Repo
 import com.example.gitaplication.models.User
 import com.example.gitaplication.models.UserList
 import com.multiplatform.play.*
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 data class UserDetailsState(
     val user: User,
-    val repos: List<Data>? = null,
+    val repos: List<Repo>? = null,
     val followers: List<UserList>? = null,
     val following: List<UserList>? = null,
     val isItFetching: Boolean = false
@@ -24,7 +24,7 @@ sealed class UserDetailsAction : Action {
 
         sealed class Reaction : com.multiplatform.play.Reaction {
 
-            class Success(val repos: List<Data>) : Reaction()
+            class Success(val repos: List<Repo>) : Reaction()
 
             class Error(val error: Throwable) : Reaction()
 

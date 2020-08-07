@@ -1,6 +1,6 @@
 package com.example.gitaplication.di
 
-import com.example.gitaplication.services.GitHubService
+import com.example.gitaplication.repositories.rest.GitHubService
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

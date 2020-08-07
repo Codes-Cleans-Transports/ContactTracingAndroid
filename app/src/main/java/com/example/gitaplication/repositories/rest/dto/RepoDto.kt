@@ -1,6 +1,6 @@
-package com.example.gitaplication.dto
+package com.example.gitaplication.repositories.rest.dto
 
-import com.example.gitaplication.models.Data
+import com.example.gitaplication.models.Repo
 import com.google.gson.annotations.SerializedName
 
 data class RepoDto(
@@ -11,8 +11,8 @@ data class RepoDto(
     @SerializedName("forks_count") val forksCount: Int
 )
 
-fun RepoDto.toRepo(): Data =
-    Data(
+fun RepoDto.toRepo(): Repo =
+    Repo(
         name = name,
         description = description ?: "No Data",
         watchersCount = watchersCount,

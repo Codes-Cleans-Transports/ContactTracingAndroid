@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/followers"
+        app:layout_constraintTop_toBottomOf="@+id/following"
         app:layout_constraintVertical_bias="0.694" />
 
     <com.github.ybq.android.spinkit.SpinKitView

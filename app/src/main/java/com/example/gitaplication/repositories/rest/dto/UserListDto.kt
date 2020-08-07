@@ -1,4 +1,4 @@
-package com.example.gitaplication.dto
+package com.example.gitaplication.repositories.rest.dto
 
 import com.example.gitaplication.models.UserList
 import com.google.gson.annotations.SerializedName

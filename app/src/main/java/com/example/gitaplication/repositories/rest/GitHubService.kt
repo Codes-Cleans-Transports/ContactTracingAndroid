@@ -1,11 +1,10 @@
-package com.example.gitaplication.services
+package com.example.gitaplication.repositories.rest
 
-import com.example.gitaplication.dto.RepoDto
-import com.example.gitaplication.dto.UserDto
-import com.example.gitaplication.dto.UserListItemDto
+import com.example.gitaplication.repositories.rest.dto.RepoDto
+import com.example.gitaplication.repositories.rest.dto.UserDto
+import com.example.gitaplication.repositories.rest.dto.UserListItemDto
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.HEAD
 import retrofit2.http.Path
 
 interface GitHubService {

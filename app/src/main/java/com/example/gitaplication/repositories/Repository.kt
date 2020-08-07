@@ -1,9 +1,8 @@
 package com.example.gitaplication.repositories
 
-import com.example.gitaplication.models.Data
+import com.example.gitaplication.models.Repo
 import com.example.gitaplication.models.User
 import com.example.gitaplication.models.UserList
-import com.multiplatform.util.Result
 import java.lang.Exception
 
 interface Repository {
@@ -12,7 +11,7 @@ interface Repository {
     suspend fun getUser(username: String): User
 
     @Throws(Exception::class)
-    suspend fun getRepos(username: String): List<Data>
+    suspend fun getRepos(username: String): List<Repo>
 
     @Throws(Exception::class)
     suspend fun getFollowers(username: String): List<UserList>

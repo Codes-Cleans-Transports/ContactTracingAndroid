@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gitaplication.R
-import com.example.gitaplication.models.Data
+import com.example.gitaplication.models.Repo
 import kotlinx.android.synthetic.main.repo_item_holder.view.*
 import java.util.*
 
 class ReposRecycleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items: List<Data>? = ArrayList()
+    private var items: List<Repo>? = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return RepoViewHolder(
@@ -34,7 +34,7 @@ class ReposRecycleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items?.size ?: 0
     }
 
-    fun submitList(repoList: List<Data>?){
+    fun submitList(repoList: List<Repo>?){
         items=repoList
     }
 
@@ -44,8 +44,8 @@ class ReposRecycleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val watchersCount: TextView=itemView.watchers_count
         private val forksCount: TextView=itemView.forks_count
 
-        fun bind(data :Data){
-            data.let{
+        fun bind(repo :Repo){
+            repo.let{
                 repoName.text=it.name
                 repoDescription.text=it.description
                 watchersCount.text=it.watchersCount.toString()
