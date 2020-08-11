@@ -13,38 +13,39 @@ class CachingRepository(
 ) : Repository {
 
     override suspend fun getUser(username: String): User {
-            try{
-                updateUserData(username)
-                return local.getUser(username)
-            }catch (e: IllegalStateException){
-                throw e
-            }
+
+        return try{
+            local.getUser(username)
+        }catch (e: IllegalStateException){
+            updateUserData(username)
+            local.getUser(username)
+        }
     }
 
     override suspend fun getRepos(username: String): List<Repo> {
-            try{
-                updateRepos(username)
-                return local.getRepos(username)
-            }catch (e: IllegalStateException){
-                throw e
-            }
+        return try{
+            local.getRepos(username)
+        }catch (e: IllegalStateException){
+            updateRepos(username)
+            local.getRepos(username)
+        }
     }
 
     override suspend fun getFollowers(username: String): List<UserList> {
-        try{
-            updateFollowers(username)
-            return local.getFollowers(username)
+        return try{
+            local.getFollowers(username)
         }catch (e: IllegalStateException){
-            throw e
+            updateFollowers(username)
+            local.getFollowers(username)
         }
     }
 
     override suspend fun getFollowing(username: String): List<UserList>{
-        try{
-            updateFollowing(username)
-            return local.getFollowing(username)
+        return try{
+            local.getFollowing(username)
         }catch (e: IllegalStateException){
-            throw e
+            updateFollowing(username)
+            local.getFollowing(username)
         }
     }
 

@@ -17,7 +17,7 @@ import com.example.gitaplication.models.Repo
 )
 data class RepoEntity(
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "user_username", index = true) val userUsername: String,
+    @ColumnInfo(name = "user_username") val userUsername: String,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "watchers_count") val watchersCount: Int,
     @ColumnInfo(name = "forks_count") val forksCount: Int

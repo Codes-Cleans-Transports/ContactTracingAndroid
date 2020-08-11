@@ -5,7 +5,7 @@ import com.example.gitaplication.models.UserList
 
 
 data class UserListItemEntity(
-    @ColumnInfo(name = "login") val username: String,
+    @ColumnInfo(name = "username") val username: String,
     @ColumnInfo(name = "avatar_url") val avatarUrl: String
 )
 

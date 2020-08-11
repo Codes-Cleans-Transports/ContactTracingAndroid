@@ -14,16 +14,16 @@ interface RepoDao {
     @Query(
         """
             SELECT * FROM repos
-            WHERE user_username = :login
+            WHERE user_username = :username
         """
     )
-    suspend fun getRepos(login: String): List<RepoEntity>
+    suspend fun getRepos(username: String): List<RepoEntity>
 
     @Query(
         """
             DELETE FROM repos
-            WHERE user_username = :login
+            WHERE user_username = :username
         """
     )
-    suspend fun deleteRepos(login: String)
+    suspend fun deleteRepos(username: String)
 }
