@@ -8,6 +8,7 @@ import com.example.gitaplication.repositories.table.RepoEntity
 
 @Dao
 interface RepoDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRepos(repos: List<RepoEntity>)
 
