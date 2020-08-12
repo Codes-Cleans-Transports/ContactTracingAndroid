@@ -19,7 +19,6 @@ class CachingRepository(
             local.getUser(username)
         }catch (e: IllegalArgumentException){
             updateUserData(username)
-            local.getUser(username)
         }
     }
 
@@ -48,10 +47,11 @@ class CachingRepository(
     }
 
 
-    private suspend fun updateUserData(username: String) {
+    private suspend fun updateUserData(username: String): User {
         try{
             val user: User = remote.getUser(username)
             local.insertUser(user)
+            return user
         }catch(e: IllegalStateException){
             throw e
         }
