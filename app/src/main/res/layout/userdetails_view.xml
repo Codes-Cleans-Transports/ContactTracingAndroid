@@ -64,16 +64,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_list"
-        android:layout_width="382dp"
-        android:layout_height="420dp"
+        android:layout_width="369dp"
+        android:layout_height="501dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/following"
-        app:layout_constraintVertical_bias="0.694" />
+        app:layout_constraintTop_toBottomOf="@+id/followers"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/detailsProgressIndicator"
@@ -88,14 +90,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.674" />
+        app:layout_constraintTop_toBottomOf="@+id/followers"
+        app:layout_constraintVertical_bias="0.552" />
 
     <Button
         android:id="@+id/repos"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/custom_button"
         android:text="@string/repos"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -103,32 +106,34 @@
         app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_bio"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/followers"
         android:layout_width="100dp"
         android:layout_height="40dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/custom_button"
         android:text="@string/followers"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/following"
-        app:layout_constraintHorizontal_bias="0.794"
+        app:layout_constraintHorizontal_bias="0.811"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_bio"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/following"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/custom_button"
         android:text="@string/following"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_bio"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/logout_button"
