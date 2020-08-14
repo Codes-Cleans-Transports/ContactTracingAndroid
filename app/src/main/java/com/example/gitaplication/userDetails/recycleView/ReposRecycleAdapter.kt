@@ -39,10 +39,10 @@ class ReposRecycleAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class RepoViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
-        private val repoName: TextView =itemView.repo_name
-        private val repoDescription: TextView= itemView.repo_description
-        private val watchersCount: TextView=itemView.watchers_count
-        private val forksCount: TextView=itemView.forks_count
+        private val repoName: TextView = itemView.repo_name
+        private val repoDescription: TextView = itemView.repo_description
+        private val watchersCount: TextView = itemView.watchers_count
+        private val forksCount: TextView = itemView.forks_count
 
         fun bind(repo :Repo){
             repo.let{
