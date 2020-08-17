@@ -30,7 +30,6 @@ class FollowRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 holder.bind(items!![position])
             }
         }
-
     }
 
     override fun getItemCount(): Int {
