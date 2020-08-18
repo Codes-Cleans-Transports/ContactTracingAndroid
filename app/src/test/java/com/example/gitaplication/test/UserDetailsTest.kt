@@ -1,9 +1,8 @@
 package com.example.gitaplication.test
 
-import com.example.gitaplication.account.AccountManager
 import com.example.gitaplication.mocks.*
 import com.example.gitaplication.userDetails.*
-import com.example.gitaplication.userDetails.di.fetchModule
+import com.example.gitaplication.userDetails.di.userDetailsModule
 import com.example.gitaplication.userDetails.useCases.FetchFollowersUseCase
 import com.example.gitaplication.userDetails.useCases.FetchFollowingUseCase
 import com.example.gitaplication.userDetails.useCases.FetchReposUseCase
@@ -24,7 +23,7 @@ class UserDetailsTest() : DIAware {
     override val di: DI = DI.lazy {
         import(testModule)
 
-        import(fetchModule)
+        import(userDetailsModule)
     }
 
     private val fetchFollowersUseCase: FetchFollowersUseCase by instance()

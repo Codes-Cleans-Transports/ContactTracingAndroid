@@ -9,10 +9,9 @@ import android.widget.Toast
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.RouterTransaction
 import com.example.gitaplication.R
-import com.example.gitaplication.account.AccountManager
 import com.example.gitaplication.login.LoginController
 import com.example.gitaplication.models.User
-import com.example.gitaplication.userDetails.di.fetchModule
+import com.example.gitaplication.userDetails.di.userDetailsModule
 import com.example.gitaplication.userDetails.useCases.FetchFollowersUseCase
 import com.example.gitaplication.userDetails.useCases.FetchFollowingUseCase
 import com.example.gitaplication.userDetails.useCases.FetchReposUseCase
@@ -29,7 +28,7 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
     override val di: DI = DI.lazy {
         extend((applicationContext as DIAware).di)
 
-        import(fetchModule)
+        import(userDetailsModule)
     }
 
     private val user: User = bundle.get("user") as User?
