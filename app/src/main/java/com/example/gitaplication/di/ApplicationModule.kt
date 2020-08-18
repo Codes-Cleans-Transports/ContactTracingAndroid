@@ -13,4 +13,6 @@ val applicationModule = DI.Module("applicationModule") {
     import(accountModule)
 
     import(roomModule)
+
+    import(constantModule)
 }

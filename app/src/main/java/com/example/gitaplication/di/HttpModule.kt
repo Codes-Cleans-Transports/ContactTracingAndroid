@@ -2,6 +2,7 @@ package com.example.gitaplication.di
 
 import com.example.gitaplication.repositories.rest.GitHubService
 import com.google.gson.Gson
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.kodein.di.DI
@@ -16,11 +17,13 @@ val httpModule = DI.Module("HttpModule") {
     val interceptor = HttpLoggingInterceptor()
     interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-    val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+    bind<OkHttpClient>() with singleton{
+        OkHttpClient.Builder().addInterceptor(interceptor).build()
+    }
 
     bind<Retrofit>() with singleton { Retrofit.Builder()
-        .baseUrl("https://api.github.com/")
-        .client(client)
+        .baseUrl(instance<String>(tag = "URL"))
+        .client(instance())
         .addConverterFactory(GsonConverterFactory.create())
         .build() }
 

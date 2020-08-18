@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import com.example.gitaplication.R
 import com.example.gitaplication.login.di.loginModule
 import com.example.gitaplication.login.useCases.AutoLoginUseCase
@@ -69,23 +70,14 @@ class LoginController : Controller(), DIAware {
 
     private fun navigationSpectator(action: Action, state: LoginState): Boolean {
 
-        if (state.loggedInUser != null) {
-            router.setRoot(
-                RouterTransaction.with(
-                    UserDetailsController(
-                        bundleOf("user" to state.loggedInUser)
-                    )
-                )
-            )
-        }
-
         if (action is LoginAction.Login.Reaction.LoggedIn) {
             router.setRoot(
                 RouterTransaction.with(
                     UserDetailsController(
                         bundleOf("user" to action.user)
                     )
-                )
+                ).popChangeHandler(HorizontalChangeHandler())
+                    .pushChangeHandler(HorizontalChangeHandler())
             )
         }
 
@@ -95,7 +87,7 @@ class LoginController : Controller(), DIAware {
     private fun errorHandlingSpectator(action: Action, state: LoginState): Boolean {
 
         if (action is LoginAction.Login.Reaction.Failed) {
-            Toast.makeText(loginView.context,"maxed number of logins per hour reached", Toast.LENGTH_SHORT).show()
+            Toast.makeText(loginView.context, action.error.message.toString(), Toast.LENGTH_SHORT).show()
             when (action.error) {
                 else -> Log.e("Login", "Message: ${action.error.localizedMessage}")
             }
