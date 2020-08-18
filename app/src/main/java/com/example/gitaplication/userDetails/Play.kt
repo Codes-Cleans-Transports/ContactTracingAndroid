@@ -55,6 +55,12 @@ sealed class UserDetailsAction : Action {
         }
     }
 
+    object StopFetching: UserDetailsAction(){
+        sealed class Reaction : com.multiplatform.play.Reaction {
+            object Success : Reaction()
+        }
+    }
+
     object Logout : UserDetailsAction()
 
 }
@@ -70,6 +76,18 @@ object UserDetailsStateTransformer : StateTransformer<UserDetailsState> {
         )
         is UserDetailsAction.FetchFollowing -> state.copy(
             isItFetching = true
+        )
+        is UserDetailsAction.StopFetching.Reaction.Success->state.copy(
+            isItFetching = false
+        )
+        is UserDetailsAction.FetchRepos.Reaction.Error -> state.copy(
+            isItFetching = false
+        )
+        is UserDetailsAction.FetchFollowers.Reaction.Error -> state.copy(
+            isItFetching = false
+        )
+        is UserDetailsAction.FetchFollowing.Reaction.Error -> state.copy(
+            isItFetching = false
         )
         is UserDetailsAction.FetchRepos.Reaction.Success -> state.copy(
             isItFetching = false,
@@ -130,7 +148,7 @@ class UserDetailsActor(
                         }
                     }
                 }
-
+                react(UserDetailsAction.StopFetching.Reaction.Success)
             }
 
             is UserDetailsAction.FetchFollowing -> {
@@ -144,7 +162,7 @@ class UserDetailsActor(
                         }
                     }
                 }
-
+                react(UserDetailsAction.StopFetching.Reaction.Success)
             }
 
         }

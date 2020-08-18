@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bluelinelabs.conductor.Controller
 import com.bluelinelabs.conductor.RouterTransaction
 import com.example.gitaplication.R
@@ -88,18 +89,21 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
     private fun errorHandlingSpectator(action: Action, state: UserDetailsState): Boolean {
 
         if (action is UserDetailsAction.FetchRepos.Reaction.Error) {
+            Toast.makeText(userDetailsView.context, action.error.message.toString(), Toast.LENGTH_SHORT).show()
             when (action.error) {
                 else -> Log.e("Fetch Repos", "Message: ${action.error.localizedMessage}")
             }
         }
 
         if (action is UserDetailsAction.FetchFollowing.Reaction.Error) {
+            Toast.makeText(userDetailsView.context, action.error.message.toString(), Toast.LENGTH_SHORT).show()
             when (action.error) {
                 else -> Log.e("Fetch Following", "Message: ${action.error.localizedMessage}")
             }
         }
 
         if (action is UserDetailsAction.FetchFollowing.Reaction.Error) {
+            Toast.makeText(userDetailsView.context, action.error.message.toString(), Toast.LENGTH_SHORT).show()
             when (action.error) {
                 else -> Log.e("Fetch Followers", "Message: ${action.error.localizedMessage}")
             }
