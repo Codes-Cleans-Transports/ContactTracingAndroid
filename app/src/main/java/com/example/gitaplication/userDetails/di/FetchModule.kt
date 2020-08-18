@@ -1,9 +1,7 @@
 package com.example.gitaplication.userDetails.di
 
-import com.example.gitaplication.userDetails.FetchFollowersUseCase
-import com.example.gitaplication.userDetails.FetchFollowingUseCase
-import com.example.gitaplication.userDetails.FetchReposUseCase
-import com.example.gitaplication.userDetails.FetchUserUseCase
+import com.example.gitaplication.account.AccountManager
+import com.example.gitaplication.userDetails.useCases.*
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -15,7 +13,15 @@ val fetchModule = DI.Module("FetchModule") {
 
     bind<FetchFollowingUseCase>() with provider { FetchFollowingUseCase(instance()) }
 
-    bind<FetchFollowersUseCase>() with provider { FetchFollowersUseCase(instance()) }
+    bind<FetchFollowersUseCase>() with provider {
+        FetchFollowersUseCase(
+            instance()
+        )
+    }
+
+    bind<LogoutUseCase>() with provider {
+        LogoutUseCase(instance())
+    }
 
     bind<FetchUserUseCase>() with provider { FetchUserUseCase(instance()) }
 }

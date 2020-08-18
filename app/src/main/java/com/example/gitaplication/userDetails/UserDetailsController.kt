@@ -13,6 +13,10 @@ import com.example.gitaplication.account.AccountManager
 import com.example.gitaplication.login.LoginController
 import com.example.gitaplication.models.User
 import com.example.gitaplication.userDetails.di.fetchModule
+import com.example.gitaplication.userDetails.useCases.FetchFollowersUseCase
+import com.example.gitaplication.userDetails.useCases.FetchFollowingUseCase
+import com.example.gitaplication.userDetails.useCases.FetchReposUseCase
+import com.example.gitaplication.userDetails.useCases.LogoutUseCase
 import com.multiplatform.play.Action
 import com.multiplatform.play.Scene
 import kotlinx.coroutines.GlobalScope
@@ -40,13 +44,13 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
 
         val view = inflater.inflate(R.layout.controller_userdetails, container, false)
 
-        val accountManager: AccountManager by instance()
-
         val fetchFollowersUseCase: FetchFollowersUseCase by instance()
 
         val fetchFollowingUseCase: FetchFollowingUseCase by instance()
 
         val fetchReposUseCase: FetchReposUseCase by instance()
+
+        val logoutUseCase : LogoutUseCase by instance()
 
         userDetailsView = view.findViewById(R.id.userDetails_view)
 
@@ -58,7 +62,7 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
                 fetchFollowersUseCase = fetchFollowersUseCase,
                 fetchReposUseCase = fetchReposUseCase,
                 fetchFollowingUseCase = fetchFollowingUseCase,
-                accountManager = accountManager
+               logoutUseCase = logoutUseCase
             ),
             spectators = listOf(
                 ::navigationSpectator,

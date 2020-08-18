@@ -1,10 +1,13 @@
 package com.example.gitaplication.test
 
-import androidx.core.util.ObjectsCompat.equals
 import com.example.gitaplication.account.AccountManager
 import com.example.gitaplication.mocks.*
 import com.example.gitaplication.userDetails.*
 import com.example.gitaplication.userDetails.di.fetchModule
+import com.example.gitaplication.userDetails.useCases.FetchFollowersUseCase
+import com.example.gitaplication.userDetails.useCases.FetchFollowingUseCase
+import com.example.gitaplication.userDetails.useCases.FetchReposUseCase
+import com.example.gitaplication.userDetails.useCases.LogoutUseCase
 import com.multiplatform.play.Scene
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -30,7 +33,7 @@ class UserDetailsTest() : DIAware {
 
     private val fetchReposUseCase: FetchReposUseCase by instance()
 
-    private val accountManager: AccountManager by instance()
+    private val logoutUseCase: LogoutUseCase by instance()
 
     @ExperimentalCoroutinesApi
     @Test
@@ -48,7 +51,7 @@ class UserDetailsTest() : DIAware {
                 fetchFollowersUseCase = fetchFollowersUseCase,
                 fetchReposUseCase = fetchReposUseCase,
                 fetchFollowingUseCase = fetchFollowingUseCase,
-                accountManager = accountManager
+                logoutUseCase = logoutUseCase
             )
         )
 

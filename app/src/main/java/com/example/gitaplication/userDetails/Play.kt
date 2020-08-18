@@ -1,9 +1,12 @@
 package com.example.gitaplication.userDetails
 
-import com.example.gitaplication.account.AccountManager
 import com.example.gitaplication.models.Repo
 import com.example.gitaplication.models.User
 import com.example.gitaplication.models.UserList
+import com.example.gitaplication.userDetails.useCases.FetchFollowersUseCase
+import com.example.gitaplication.userDetails.useCases.FetchFollowingUseCase
+import com.example.gitaplication.userDetails.useCases.FetchReposUseCase
+import com.example.gitaplication.userDetails.useCases.LogoutUseCase
 import com.multiplatform.play.Action
 import com.multiplatform.play.Actor
 import com.multiplatform.play.React
@@ -55,12 +58,6 @@ sealed class UserDetailsAction : Action {
         }
     }
 
-    object StopFetching: UserDetailsAction(){
-        sealed class Reaction : com.multiplatform.play.Reaction {
-            object Success : Reaction()
-        }
-    }
-
     object Logout : UserDetailsAction()
 
 }
@@ -76,9 +73,6 @@ object UserDetailsStateTransformer : StateTransformer<UserDetailsState> {
         )
         is UserDetailsAction.FetchFollowing -> state.copy(
             isItFetching = true
-        )
-        is UserDetailsAction.StopFetching.Reaction.Success->state.copy(
-            isItFetching = false
         )
         is UserDetailsAction.FetchRepos.Reaction.Error -> state.copy(
             isItFetching = false
@@ -115,7 +109,7 @@ class UserDetailsActor(
 
     private val fetchFollowersUseCase: FetchFollowersUseCase,
 
-    private val accountManager: AccountManager
+    private val logoutUseCase: LogoutUseCase
 
 ) : Actor<UserDetailsState> {
 
@@ -124,7 +118,7 @@ class UserDetailsActor(
         when (action) {
 
             is UserDetailsAction.Logout -> {
-                accountManager.deleteSavedAccount()
+                    logoutUseCase()
             }
 
             is UserDetailsAction.FetchRepos -> {
@@ -139,7 +133,6 @@ class UserDetailsActor(
 
             is UserDetailsAction.FetchFollowers -> {
 
-                if (state.followers == null) {
                     scope.launch(Dispatchers.Main) {
 
                         when (val result = fetchFollowersUseCase(state.user.username)) {
@@ -147,13 +140,11 @@ class UserDetailsActor(
                             is Result.Error -> react(UserDetailsAction.FetchFollowers.Reaction.Error(result.error))
                         }
                     }
-                }
-                react(UserDetailsAction.StopFetching.Reaction.Success)
+
             }
 
             is UserDetailsAction.FetchFollowing -> {
 
-                if (state.following == null) {
                     scope.launch(Dispatchers.Main) {
 
                         when (val result = fetchFollowingUseCase(state.user.username)) {
@@ -161,8 +152,6 @@ class UserDetailsActor(
                             is Result.Error -> react(UserDetailsAction.FetchFollowing.Reaction.Error(result.error))
                         }
                     }
-                }
-                react(UserDetailsAction.StopFetching.Reaction.Success)
             }
 
         }

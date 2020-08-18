@@ -1,4 +1,4 @@
-package com.example.gitaplication.userDetails
+package com.example.gitaplication.userDetails.useCases
 
 import com.example.gitaplication.models.Repo
 import com.example.gitaplication.repositories.Repository
