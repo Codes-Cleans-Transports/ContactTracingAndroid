@@ -13,6 +13,7 @@ import com.bluelinelabs.conductor.RouterTransaction
 import com.core.statefulview.SceneView
 import com.example.gitaplication.R
 import com.example.gitaplication.userDetails.UserDetailsController
+import com.example.gitaplication.util.hideKeyboard
 import com.multiplatform.util.Diff
 import kotlinx.android.synthetic.main.view_login.view.*
 
@@ -51,9 +52,4 @@ class LoginView @JvmOverloads constructor(
             loginButton.isEnabled = !state.isLoggingIn
         }
     }
-}
-
-fun View.hideKeyboard(){
-    val inputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
 }

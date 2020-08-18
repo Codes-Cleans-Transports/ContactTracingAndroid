@@ -65,10 +65,7 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
             )
         )
 
-
-        scene.dispatch(UserDetailsAction.FetchRepos(user.username))
-        scene.dispatch(UserDetailsAction.FetchFollowing(user.username))
-        scene.dispatch(UserDetailsAction.FetchFollowers(user.username))
+        scene.dispatch(UserDetailsAction.FetchRepos)
 
         userDetailsView.init(scene)
 

@@ -73,7 +73,7 @@ class LoginActor(
 
         when (action) {
 
-            is LoginAction.AutoLogin->{
+            is LoginAction.AutoLogin -> {
                 scope.launch(Dispatchers.Main) {
                     when (val result = autoLoginUseCase()) {
                         is Result.Success -> react(LoginAction.Login.Reaction.LoggedIn(result.data))

@@ -1,16 +1,18 @@
 package com.example.gitaplication.repositories.local
 
 import com.example.gitaplication.models.*
-import com.example.gitaplication.repositories.table.*
-import java.lang.IllegalArgumentException
+import com.example.gitaplication.repositories.table.UserListItemEntity
+import com.example.gitaplication.repositories.table.toRepo
+import com.example.gitaplication.repositories.table.toUser
+import com.example.gitaplication.repositories.table.toUserListItem
 
 class RoomImplementation(
     private val database: RoomDB
 ) : LocalRepository {
 
     override suspend fun getRepos(username: String): List<Repo> {
-        val repos=database.repoDao().getRepos(username).map { repoDb -> repoDb.toRepo() }
-        if(repos.isEmpty()) throw IllegalArgumentException("No such user")
+        val repos = database.repoDao().getRepos(username).map { repoDb -> repoDb.toRepo() }
+        if (repos.isEmpty()) throw IllegalArgumentException("No such user")
         else return repos
     }
 
@@ -20,13 +22,13 @@ class RoomImplementation(
 
     override suspend fun getFollowers(username: String): List<UserList> {
         val followers: List<UserListItemEntity> = database.userDao().getFollowers(username)
-        if(followers.isEmpty()) throw IllegalArgumentException("No such user")
+        if (followers.isEmpty()) throw IllegalArgumentException("No such user")
         else return followers.map { itemDbDto -> itemDbDto.toUserListItem() }
     }
 
     override suspend fun getFollowing(username: String): List<UserList> {
         val following: List<UserListItemEntity> = database.userDao().getFollowing(username)
-        if(following.isEmpty()) throw IllegalArgumentException("No such user")
+        if (following.isEmpty()) throw IllegalArgumentException("No such user")
         else return following.map { itemDbDto -> itemDbDto.toUserListItem() }
     }
 

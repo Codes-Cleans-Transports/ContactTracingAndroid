@@ -4,7 +4,10 @@ import com.example.gitaplication.account.AccountManager
 import com.example.gitaplication.models.Repo
 import com.example.gitaplication.models.User
 import com.example.gitaplication.models.UserList
-import com.multiplatform.play.*
+import com.multiplatform.play.Action
+import com.multiplatform.play.Actor
+import com.multiplatform.play.React
+import com.multiplatform.play.StateTransformer
 import com.multiplatform.util.Result
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +23,7 @@ data class UserDetailsState(
 
 sealed class UserDetailsAction : Action {
 
-    class FetchRepos(val username: String) : UserDetailsAction() {
+    object FetchRepos : UserDetailsAction() {
 
         sealed class Reaction : com.multiplatform.play.Reaction {
 
@@ -31,7 +34,7 @@ sealed class UserDetailsAction : Action {
         }
     }
 
-    class FetchFollowers(val username: String) : UserDetailsAction() {
+    object FetchFollowers : UserDetailsAction() {
 
         sealed class Reaction : com.multiplatform.play.Reaction {
 
@@ -41,7 +44,7 @@ sealed class UserDetailsAction : Action {
         }
     }
 
-    class FetchFollowing(val username: String) : UserDetailsAction() {
+    object FetchFollowing : UserDetailsAction() {
 
         sealed class Reaction : com.multiplatform.play.Reaction {
 
@@ -56,22 +59,31 @@ sealed class UserDetailsAction : Action {
 
 }
 
-object UserDetailsStateTransformer: StateTransformer<UserDetailsState>{
-    override fun invoke(state: UserDetailsState, action: Action): UserDetailsState = when(action){
-        is UserDetailsAction.FetchRepos->state.copy(
+object UserDetailsStateTransformer : StateTransformer<UserDetailsState> {
+
+    override fun invoke(state: UserDetailsState, action: Action): UserDetailsState = when (action) {
+        is UserDetailsAction.FetchRepos -> state.copy(
             isItFetching = true
         )
-        is UserDetailsAction.FetchRepos.Reaction.Success ->state.copy(
+        is UserDetailsAction.FetchFollowers -> state.copy(
+            isItFetching = true
+        )
+        is UserDetailsAction.FetchFollowing -> state.copy(
+            isItFetching = true
+        )
+        is UserDetailsAction.FetchRepos.Reaction.Success -> state.copy(
             isItFetching = false,
             repos = action.repos
         )
-        is UserDetailsAction.FetchFollowers.Reaction.Success ->state.copy(
+        is UserDetailsAction.FetchFollowers.Reaction.Success -> state.copy(
+            isItFetching = false,
             followers = action.followers
         )
-        is UserDetailsAction.FetchFollowing.Reaction.Success ->state.copy(
+        is UserDetailsAction.FetchFollowing.Reaction.Success -> state.copy(
+            isItFetching = false,
             following = action.following
         )
-       else -> state
+        else -> state
     }
 
 }
@@ -93,41 +105,46 @@ class UserDetailsActor(
 
         when (action) {
 
-            is UserDetailsAction.Logout->{
+            is UserDetailsAction.Logout -> {
                 accountManager.deleteSavedAccount()
             }
 
-            is UserDetailsAction.FetchRepos-> {
-
+            is UserDetailsAction.FetchRepos -> {
                 scope.launch(Dispatchers.Main) {
 
-                    when (val result = fetchReposUseCase(action.username)) {
+                    when (val result = fetchReposUseCase(state.user.username)) {
                         is Result.Success -> react(UserDetailsAction.FetchRepos.Reaction.Success(result.data))
                         is Result.Error -> react(UserDetailsAction.FetchRepos.Reaction.Error(result.error))
                     }
                 }
             }
 
-            is UserDetailsAction.FetchFollowers-> {
+            is UserDetailsAction.FetchFollowers -> {
 
-                scope.launch(Dispatchers.Main) {
+                if (state.followers == null) {
+                    scope.launch(Dispatchers.Main) {
 
-                    when (val result = fetchFollowersUseCase(action.username)) {
-                        is Result.Success -> react(UserDetailsAction.FetchFollowers.Reaction.Success(result.data))
-                        is Result.Error -> react(UserDetailsAction.FetchFollowers.Reaction.Error(result.error))
+                        when (val result = fetchFollowersUseCase(state.user.username)) {
+                            is Result.Success -> react(UserDetailsAction.FetchFollowers.Reaction.Success(result.data))
+                            is Result.Error -> react(UserDetailsAction.FetchFollowers.Reaction.Error(result.error))
+                        }
                     }
                 }
+
             }
 
-            is UserDetailsAction.FetchFollowing-> {
+            is UserDetailsAction.FetchFollowing -> {
 
-                scope.launch(Dispatchers.Main) {
+                if (state.following == null) {
+                    scope.launch(Dispatchers.Main) {
 
-                    when (val result = fetchFollowingUseCase(action.username)) {
-                        is Result.Success -> react(UserDetailsAction.FetchFollowing.Reaction.Success(result.data))
-                        is Result.Error -> react(UserDetailsAction.FetchFollowing.Reaction.Error(result.error))
+                        when (val result = fetchFollowingUseCase(state.user.username)) {
+                            is Result.Success -> react(UserDetailsAction.FetchFollowing.Reaction.Success(result.data))
+                            is Result.Error -> react(UserDetailsAction.FetchFollowing.Reaction.Error(result.error))
+                        }
                     }
                 }
+
             }
 
         }
