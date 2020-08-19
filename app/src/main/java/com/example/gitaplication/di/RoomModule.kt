@@ -13,7 +13,7 @@ val roomModule = DI.Module("RoomModule") {
         Room.databaseBuilder(
             instance(),
             RoomDB::class.java,
-           " RoomDB"
+            " RoomDB"
         )
             .fallbackToDestructiveMigration()
             .build()

@@ -1,12 +1,11 @@
 package com.example.gitaplication.repositories.rest
 
-import com.example.gitaplication.repositories.rest.dto.toRepo
-import com.example.gitaplication.repositories.rest.dto.toUser
-import com.example.gitaplication.repositories.rest.dto.toUserListItem
 import com.example.gitaplication.models.Repo
 import com.example.gitaplication.models.User
 import com.example.gitaplication.models.UserList
-import com.example.gitaplication.repositories.Repository
+import com.example.gitaplication.repositories.rest.dto.toRepo
+import com.example.gitaplication.repositories.rest.dto.toUser
+import com.example.gitaplication.repositories.rest.dto.toUserListItem
 
 class RestRepository(
     private val restService: GitHubService

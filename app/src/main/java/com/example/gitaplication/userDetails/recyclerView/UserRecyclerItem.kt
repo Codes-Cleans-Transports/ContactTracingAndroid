@@ -20,20 +20,20 @@ class UserRecyclerItem(override val data: UserList) :
     override fun createViewHolder(parent: ViewGroup, inflater: LayoutInflater): UserViewHolder {
         return UserViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.user_item_holder,parent,false)
+                .inflate(R.layout.user_item_holder, parent, false)
         )
     }
 
-    class UserViewHolder constructor(itemView: View):
-        DiverseRecyclerAdapter.ViewHolder<UserList>(itemView){
+    class UserViewHolder constructor(itemView: View) :
+        DiverseRecyclerAdapter.ViewHolder<UserList>(itemView) {
 
-        private val username: TextView =itemView.user_item_login
-        private val avatar: ImageView =itemView.user_item_avatar
+        private val username: TextView = itemView.user_item_login
+        private val avatar: ImageView = itemView.user_item_avatar
 
-        override fun bindTo(data : UserList){
+        override fun bindTo(data: UserList) {
 
-            data.let{
-              username.text=data.username
+            data.let {
+                username.text = data.username
 
                 val requestOptions = RequestOptions()
                     .placeholder(R.drawable.ic_launcher_background)

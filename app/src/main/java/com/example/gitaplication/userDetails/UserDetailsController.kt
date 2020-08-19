@@ -49,7 +49,7 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
 
         val fetchReposUseCase: FetchReposUseCase by instance()
 
-        val logoutUseCase : LogoutUseCase by instance()
+        val logoutUseCase: LogoutUseCase by instance()
 
         userDetailsView = view.findViewById(R.id.userDetails_view)
 
@@ -61,7 +61,7 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
                 fetchFollowersUseCase = fetchFollowersUseCase,
                 fetchReposUseCase = fetchReposUseCase,
                 fetchFollowingUseCase = fetchFollowingUseCase,
-               logoutUseCase = logoutUseCase
+                logoutUseCase = logoutUseCase
             ),
             spectators = listOf(
                 ::navigationSpectator,

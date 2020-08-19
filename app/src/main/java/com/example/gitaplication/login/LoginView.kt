@@ -1,18 +1,13 @@
 package com.example.gitaplication.login
 
-import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import androidx.core.os.bundleOf
-import com.bluelinelabs.conductor.RouterTransaction
 import com.core.statefulview.SceneView
 import com.example.gitaplication.R
-import com.example.gitaplication.userDetails.UserDetailsController
 import com.example.gitaplication.util.hideKeyboard
 import com.multiplatform.util.Diff
 import kotlinx.android.synthetic.main.view_login.view.*

@@ -7,6 +7,6 @@ import org.kodein.di.bind
 import org.kodein.di.instance
 import org.kodein.di.singleton
 
-val accountModule= DI.Module("AccountModule"){
+val accountModule = DI.Module("AccountModule") {
     bind<AccountManager>() with singleton { AccountManagerImpl(instance()) }
 }

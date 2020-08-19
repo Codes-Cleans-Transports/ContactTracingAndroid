@@ -11,12 +11,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.core.statefulview.SceneView
 import com.example.gitaplication.R
-import com.example.gitaplication.userDetails.recyclerView.UserRecyclerItem
 import com.example.gitaplication.userDetails.recyclerView.RepoRecyclerItem
 import com.example.gitaplication.userDetails.recyclerView.TopSpacingItemDecoration
+import com.example.gitaplication.userDetails.recyclerView.UserRecyclerItem
 import com.multiplatform.util.Diff
 import com.trading212.diverserecycleradapter.DiverseRecyclerAdapter
-import com.trading212.diverserecycleradapter.util.replaceItems
 import kotlinx.android.synthetic.main.userdetails_view.view.*
 
 
@@ -78,17 +77,17 @@ class UserDetailsView @JvmOverloads constructor(
         }
 
         if (diff.by { it.repos }) {
-           if(state.repos!=null) repoAdapter.addItems(state.repos.map { RepoRecyclerItem(it) })
+            if (state.repos != null) repoAdapter.addItems(state.repos.map { RepoRecyclerItem(it) })
             recycler_list.adapter = repoAdapter
         }
 
         if (diff.by { it.followers }) {
-            if(state.followers!=null)  followersAdapter.addItems(state.followers.map { UserRecyclerItem(it) })
+            if (state.followers != null) followersAdapter.addItems(state.followers.map { UserRecyclerItem(it) })
             recycler_list.adapter = followersAdapter
         }
 
         if (diff.by { it.following }) {
-            if(state.following!=null) followingAdapter.addItems(state.following.map { UserRecyclerItem(it) })
+            if (state.following != null) followingAdapter.addItems(state.following.map { UserRecyclerItem(it) })
             recycler_list.adapter = followingAdapter
         }
 

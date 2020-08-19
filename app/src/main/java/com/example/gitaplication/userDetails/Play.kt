@@ -118,7 +118,7 @@ class UserDetailsActor(
         when (action) {
 
             is UserDetailsAction.Logout -> {
-                    logoutUseCase()
+                logoutUseCase()
             }
 
             is UserDetailsAction.FetchRepos -> {
@@ -133,25 +133,24 @@ class UserDetailsActor(
 
             is UserDetailsAction.FetchFollowers -> {
 
-                    scope.launch(Dispatchers.Main) {
+                scope.launch(Dispatchers.Main) {
 
-                        when (val result = fetchFollowersUseCase(state.user.username)) {
-                            is Result.Success -> react(UserDetailsAction.FetchFollowers.Reaction.Success(result.data))
-                            is Result.Error -> react(UserDetailsAction.FetchFollowers.Reaction.Error(result.error))
-                        }
+                    when (val result = fetchFollowersUseCase(state.user.username)) {
+                        is Result.Success -> react(UserDetailsAction.FetchFollowers.Reaction.Success(result.data))
+                        is Result.Error -> react(UserDetailsAction.FetchFollowers.Reaction.Error(result.error))
                     }
-
+                }
             }
 
             is UserDetailsAction.FetchFollowing -> {
 
-                    scope.launch(Dispatchers.Main) {
+                scope.launch(Dispatchers.Main) {
 
-                        when (val result = fetchFollowingUseCase(state.user.username)) {
-                            is Result.Success -> react(UserDetailsAction.FetchFollowing.Reaction.Success(result.data))
-                            is Result.Error -> react(UserDetailsAction.FetchFollowing.Reaction.Error(result.error))
-                        }
+                    when (val result = fetchFollowingUseCase(state.user.username)) {
+                        is Result.Success -> react(UserDetailsAction.FetchFollowing.Reaction.Success(result.data))
+                        is Result.Error -> react(UserDetailsAction.FetchFollowing.Reaction.Error(result.error))
                     }
+                }
             }
 
         }

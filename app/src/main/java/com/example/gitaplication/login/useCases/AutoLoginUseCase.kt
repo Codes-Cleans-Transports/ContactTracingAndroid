@@ -4,7 +4,6 @@ import com.example.gitaplication.account.AccountManager
 import com.example.gitaplication.models.User
 import com.multiplatform.util.Result
 import com.multiplatform.util.UseCase
-import java.lang.IllegalStateException
 
 class AutoLoginUseCase(
     private val accountManager: AccountManager,

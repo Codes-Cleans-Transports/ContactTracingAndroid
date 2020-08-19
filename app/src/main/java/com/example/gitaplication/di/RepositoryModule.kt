@@ -2,8 +2,8 @@ package com.example.gitaplication.di
 
 import com.example.gitaplication.repositories.CachingRepository
 import com.example.gitaplication.repositories.Repository
-import com.example.gitaplication.repositories.local.RoomImplementation
 import com.example.gitaplication.repositories.local.LocalRepository
+import com.example.gitaplication.repositories.local.RoomImplementation
 import com.example.gitaplication.repositories.rest.RemoteRepository
 import com.example.gitaplication.repositories.rest.RestRepository
 import org.kodein.di.DI

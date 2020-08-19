@@ -8,10 +8,11 @@ data class Repo(
     val watchersCount: Int,
     val forksCount: Int
 )
+
 fun Repo.toDbRepo(username: String) =
     RepoEntity(
         name = name,
-        userUsername =username,
+        userUsername = username,
         description = description,
         watchersCount = watchersCount,
         forksCount = forksCount

@@ -3,7 +3,6 @@ package com.example.gitaplication.models
 import android.os.Parcelable
 import com.example.gitaplication.repositories.table.UserEntity
 import kotlinx.android.parcel.Parcelize
-import java.util.*
 
 @Parcelize
 data class User(
@@ -24,4 +23,5 @@ fun User.toDbUser(): UserEntity =
         location = location,
         publicRepos = publicRepos,
         followers = followers,
-        following = following)
+        following = following
+    )

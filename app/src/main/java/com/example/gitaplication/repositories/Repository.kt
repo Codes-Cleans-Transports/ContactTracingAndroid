@@ -3,7 +3,6 @@ package com.example.gitaplication.repositories
 import com.example.gitaplication.models.Repo
 import com.example.gitaplication.models.User
 import com.example.gitaplication.models.UserList
-import java.lang.Exception
 
 interface Repository {
 

@@ -8,7 +8,7 @@ class LogoutUseCase(
     private val accountManager: AccountManager
 ) : UseCase {
 
-     operator fun invoke() =
+    operator fun invoke() =
         accountManager.deleteSavedAccount()
 
 }
