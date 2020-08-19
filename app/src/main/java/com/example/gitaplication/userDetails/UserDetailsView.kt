@@ -11,10 +11,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.core.statefulview.SceneView
 import com.example.gitaplication.R
-import com.example.gitaplication.userDetails.recycleView.FollowRecyclerAdapter
-import com.example.gitaplication.userDetails.recycleView.ReposRecycleAdapter
-import com.example.gitaplication.userDetails.recycleView.TopSpacingItemDecoration
+import com.example.gitaplication.userDetails.recyclerView.UserRecyclerItem
+import com.example.gitaplication.userDetails.recyclerView.RepoRecyclerItem
+import com.example.gitaplication.userDetails.recyclerView.TopSpacingItemDecoration
 import com.multiplatform.util.Diff
+import com.trading212.diverserecycleradapter.DiverseRecyclerAdapter
+import com.trading212.diverserecycleradapter.util.replaceItems
 import kotlinx.android.synthetic.main.userdetails_view.view.*
 
 
@@ -24,11 +26,11 @@ class UserDetailsView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : SceneView<UserDetailsState>(context, attrs, defStyleAttr) {
 
-    private lateinit var repoAdapter: ReposRecycleAdapter
+    private lateinit var repoAdapter: DiverseRecyclerAdapter
 
-    private lateinit var followersAdapter: FollowRecyclerAdapter
+    private lateinit var followersAdapter: DiverseRecyclerAdapter
 
-    private lateinit var followingAdapter: FollowRecyclerAdapter
+    private lateinit var followingAdapter: DiverseRecyclerAdapter
 
     override fun createView(inflater: LayoutInflater, parent: ViewGroup): View =
         inflater.inflate(R.layout.userdetails_view, parent, false)
@@ -62,9 +64,9 @@ class UserDetailsView @JvmOverloads constructor(
             layoutManager = LinearLayoutManager(context)
             val topSpacingItemDecoration = TopSpacingItemDecoration(30)
             addItemDecoration(topSpacingItemDecoration)
-            repoAdapter = ReposRecycleAdapter()
-            followersAdapter = FollowRecyclerAdapter()
-            followingAdapter = FollowRecyclerAdapter()
+            repoAdapter = DiverseRecyclerAdapter()
+            followersAdapter = DiverseRecyclerAdapter()
+            followingAdapter = DiverseRecyclerAdapter()
             adapter = repoAdapter
         }
     }
@@ -76,17 +78,17 @@ class UserDetailsView @JvmOverloads constructor(
         }
 
         if (diff.by { it.repos }) {
-            repoAdapter.submitList(state.repos)
+           if(state.repos!=null) repoAdapter.addItems(state.repos.map { RepoRecyclerItem(it) })
             recycler_list.adapter = repoAdapter
         }
 
         if (diff.by { it.followers }) {
-            followersAdapter.submitList(state.followers)
+            if(state.followers!=null)  followersAdapter.addItems(state.followers.map { UserRecyclerItem(it) })
             recycler_list.adapter = followersAdapter
         }
 
         if (diff.by { it.following }) {
-            followingAdapter.submitList(state.following)
+            if(state.following!=null) followingAdapter.addItems(state.following.map { UserRecyclerItem(it) })
             recycler_list.adapter = followingAdapter
         }
 

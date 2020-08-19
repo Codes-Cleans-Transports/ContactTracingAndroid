@@ -1,4 +1,4 @@
-package com.example.gitaplication.userDetails.recycleView
+package com.example.gitaplication.userDetails.recyclerView
 
 import android.graphics.Rect
 import android.view.View
