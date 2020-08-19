@@ -28,7 +28,7 @@ class RoomImplementation(
 
     override suspend fun getFollowing(username: String): List<UserList> {
         val following: List<UserListItemEntity> = database.userDao().getFollowing(username)
-        if (following.isEmpty()) throw IllegalArgumentException("No such user")
+        if (following.size!=getUser(username).following) throw IllegalArgumentException("No such user")
         else return following.map { itemDbDto -> itemDbDto.toUserListItem() }
     }
 
