@@ -105,7 +105,7 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
             }
         }
 
-        if (action is UserDetailsAction.FetchFollowing.Reaction.Error) {
+        if (action is UserDetailsAction.FetchFollowers.Reaction.Error) {
             Toast.makeText(userDetailsView.context, action.error.message.toString(), Toast.LENGTH_SHORT).show()
             when (action.error) {
                 else -> Log.e("Fetch Followers", "Message: ${action.error.localizedMessage}")

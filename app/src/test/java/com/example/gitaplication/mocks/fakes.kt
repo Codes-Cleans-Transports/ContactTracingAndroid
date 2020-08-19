@@ -4,8 +4,6 @@ import com.example.gitaplication.models.Repo
 import com.example.gitaplication.models.User
 import com.example.gitaplication.models.UserList
 
-val notTestingUser = "not testing user"
-
 val testingUser = User(
     "test",
     "test_avatar",

@@ -8,5 +8,5 @@ import org.kodein.di.singleton
 
 val testModule = DI.Module("Test Module"){
     bind<Repository>() with singleton { RepositoryMock() }
-    bind<AccountManager>() with singleton { AuthenticatorMock() }
+    bind<AccountManager>() with singleton { AuthenticatorMock()}
 }
