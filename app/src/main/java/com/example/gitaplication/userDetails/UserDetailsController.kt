@@ -93,7 +93,7 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
 
         if (action is UserDetailsAction.FetchRepos.Reaction.Error) {
             Toast.makeText(userDetailsView.context, action.error.message.toString(), Toast.LENGTH_SHORT).show()
-            when (action.error) {
+            when (action.error) { // TODO review2: what is the purpose of this construct? The same applies to the other ones in the method.
                 else -> Log.e("Fetch Repos", "Message: ${action.error.localizedMessage}")
             }
         }

@@ -25,6 +25,7 @@ class UserDetailsView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : SceneView<UserDetailsState>(context, attrs, defStyleAttr) {
 
+    // TODO review2: Use single adapter and replace its items instead of replacing the adapter
     private lateinit var repoAdapter: DiverseRecyclerAdapter
 
     private lateinit var followersAdapter: DiverseRecyclerAdapter
@@ -39,16 +40,16 @@ class UserDetailsView @JvmOverloads constructor(
 
         followers.setOnClickListener {
             dispatchAction(UserDetailsAction.FetchFollowers)
-            recycler_list.adapter = followersAdapter
+            recycler_list.adapter = followersAdapter // TODO review2: delete
         }
 
         following.setOnClickListener {
             dispatchAction(UserDetailsAction.FetchFollowing)
-            recycler_list.adapter = followingAdapter
+            recycler_list.adapter = followingAdapter // TODO review2: delete
         }
 
         repos.setOnClickListener {
-            recycler_list.adapter = repoAdapter
+            recycler_list.adapter = repoAdapter // TODO review2: delete
         }
 
         logout_button.setOnClickListener {

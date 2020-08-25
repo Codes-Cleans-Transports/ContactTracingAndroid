@@ -1,4 +1,4 @@
-package com.example.gitaplication.userDetails.recyclerView
+package com.example.gitaplication.userDetails.recyclerView // TODO review2: Violated java package name convention: https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html
 
 import android.graphics.Rect
 import android.view.View

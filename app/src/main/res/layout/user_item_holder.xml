@@ -8,6 +8,8 @@
     app:cardCornerRadius="2dp"
     app:cardPreventCornerOverlap="false"
     >
+    <!-- TODO review2: The shadow is cut off -->
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

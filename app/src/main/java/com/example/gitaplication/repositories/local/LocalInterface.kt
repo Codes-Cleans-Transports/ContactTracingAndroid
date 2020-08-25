@@ -4,7 +4,7 @@ import com.example.gitaplication.models.Repo
 import com.example.gitaplication.models.User
 import com.example.gitaplication.models.UserList
 
-interface LocalInterface {
+interface LocalInterface { // TODO review2: What does LocalInterface mean? Find a more descriptive name
 
     suspend fun insertUser(user: User)
 

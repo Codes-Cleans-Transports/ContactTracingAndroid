@@ -33,6 +33,7 @@
         android:layout_marginBottom="38dp"
         android:src="@drawable/github_logo" />
 
+    <!-- TODO review2: Use dynamic size. -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="336dp"

@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val httpModule = DI.Module("HttpModule") {
 
+    // TODO review2: move the interceptor creation and setup in a new dependency declaration of in the OkHttpClient declaration
     val interceptor = HttpLoggingInterceptor()
     interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 

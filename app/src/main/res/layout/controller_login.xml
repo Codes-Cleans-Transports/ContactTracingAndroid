@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- TODO review2: the parent layout is not needed -->
     <com.example.gitaplication.login.LoginView
         android:id="@+id/loginView"
         android:layout_width="match_parent"

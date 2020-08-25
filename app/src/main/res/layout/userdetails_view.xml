@@ -62,6 +62,7 @@
         tools:layout_editor_absoluteY="107dp" />
 
 
+    <!-- TODO review2: what will happen on a device with larger screen? Find a solution with dynamic width and height -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_list"
         android:layout_width="370dp"
