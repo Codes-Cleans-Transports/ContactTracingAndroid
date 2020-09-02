@@ -19,7 +19,7 @@ class UserRecyclerItem(override val data: UserList) :
 
     override fun createViewHolder(parent: ViewGroup, inflater: LayoutInflater): UserViewHolder {
         return UserViewHolder(
-            LayoutInflater.from(parent.context) // TODO review2: use the supplied inflater
+            inflater // TODO review2 DONE: use the supplied inflater
                 .inflate(R.layout.user_item_holder, parent, false)
         )
     }

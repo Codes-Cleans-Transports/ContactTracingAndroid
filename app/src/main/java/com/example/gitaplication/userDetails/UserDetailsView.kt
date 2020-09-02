@@ -16,6 +16,7 @@ import com.example.gitaplication.userDetails.recyclerView.TopSpacingItemDecorati
 import com.example.gitaplication.userDetails.recyclerView.UserRecyclerItem
 import com.multiplatform.util.Diff
 import com.trading212.diverserecycleradapter.DiverseRecyclerAdapter
+import com.trading212.diverserecycleradapter.util.replaceItems
 import kotlinx.android.synthetic.main.userdetails_view.view.*
 
 
@@ -25,12 +26,8 @@ class UserDetailsView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : SceneView<UserDetailsState>(context, attrs, defStyleAttr) {
 
-    // TODO review2: Use single adapter and replace its items instead of replacing the adapter
-    private lateinit var repoAdapter: DiverseRecyclerAdapter
-
-    private lateinit var followersAdapter: DiverseRecyclerAdapter
-
-    private lateinit var followingAdapter: DiverseRecyclerAdapter
+    // TODO review2 Done: Use single adapter and replace its items instead of replacing the adapter
+    private lateinit var diverseRecyclerAdapter: DiverseRecyclerAdapter
 
     override fun createView(inflater: LayoutInflater, parent: ViewGroup): View =
         inflater.inflate(R.layout.userdetails_view, parent, false)
@@ -39,23 +36,20 @@ class UserDetailsView @JvmOverloads constructor(
         super.onViewCreated(view)
 
         followers.setOnClickListener {
-            dispatchAction(UserDetailsAction.FetchFollowers)
-            recycler_list.adapter = followersAdapter // TODO review2: delete
+            diverseRecyclerAdapter.replaceItems(state?.followers!!.map { UserRecyclerItem(it) })
         }
 
         following.setOnClickListener {
-            dispatchAction(UserDetailsAction.FetchFollowing)
-            recycler_list.adapter = followingAdapter // TODO review2: delete
+            diverseRecyclerAdapter.replaceItems(state?.following!!.map { UserRecyclerItem(it) })
         }
 
         repos.setOnClickListener {
-            recycler_list.adapter = repoAdapter // TODO review2: delete
+            diverseRecyclerAdapter.replaceItems(state?.repos!!.map { RepoRecyclerItem(it) })
         }
 
         logout_button.setOnClickListener {
             dispatchAction(UserDetailsAction.Logout)
         }
-
         initRecycleView(recycler_list)
     }
 
@@ -64,10 +58,8 @@ class UserDetailsView @JvmOverloads constructor(
             layoutManager = LinearLayoutManager(context)
             val topSpacingItemDecoration = TopSpacingItemDecoration(30)
             addItemDecoration(topSpacingItemDecoration)
-            repoAdapter = DiverseRecyclerAdapter()
-            followersAdapter = DiverseRecyclerAdapter()
-            followingAdapter = DiverseRecyclerAdapter()
-            adapter = repoAdapter
+            diverseRecyclerAdapter = DiverseRecyclerAdapter()
+            adapter = diverseRecyclerAdapter
         }
     }
 
@@ -77,19 +69,8 @@ class UserDetailsView @JvmOverloads constructor(
             detailsProgressIndicator.visibility = if (state.isItFetching) View.VISIBLE else View.GONE
         }
 
-        if (diff.by { it.repos }) {
-            if (state.repos != null) repoAdapter.addItems(state.repos.map { RepoRecyclerItem(it) })
-            recycler_list.adapter = repoAdapter
-        }
-
-        if (diff.by { it.followers }) {
-            if (state.followers != null) followersAdapter.addItems(state.followers.map { UserRecyclerItem(it) })
-            recycler_list.adapter = followersAdapter
-        }
-
-        if (diff.by { it.following }) {
-            if (state.following != null) followingAdapter.addItems(state.following.map { UserRecyclerItem(it) })
-            recycler_list.adapter = followingAdapter
+        if (diff.by { it.AreReposFetching }) {
+            if (!state.AreReposFetching) diverseRecyclerAdapter.replaceItems(state.repos!!.map { RepoRecyclerItem(it) })
         }
 
         if (diff.by { it.user }) {

@@ -69,9 +69,10 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
             )
         )
 
-        scene.dispatch(UserDetailsAction.FetchRepos)
-
         userDetailsView.init(scene)
+        scene.dispatch(UserDetailsAction.FetchRepos)
+        scene.dispatch(UserDetailsAction.FetchFollowers)
+        scene.dispatch(UserDetailsAction.FetchFollowing)
 
         return view
     }
@@ -93,23 +94,18 @@ class UserDetailsController(bundle: Bundle) : Controller(), DIAware {
 
         if (action is UserDetailsAction.FetchRepos.Reaction.Error) {
             Toast.makeText(userDetailsView.context, action.error.message.toString(), Toast.LENGTH_SHORT).show()
-            when (action.error) { // TODO review2: what is the purpose of this construct? The same applies to the other ones in the method.
-                else -> Log.e("Fetch Repos", "Message: ${action.error.localizedMessage}")
-            }
+            // TODO review2 Done: what is the purpose of this construct? The same applies to the other ones in the method.
+            Log.e("Fetch Repos", "Message: ${action.error.localizedMessage}")
         }
 
         if (action is UserDetailsAction.FetchFollowing.Reaction.Error) {
             Toast.makeText(userDetailsView.context, action.error.message.toString(), Toast.LENGTH_SHORT).show()
-            when (action.error) {
-                else -> Log.e("Fetch Following", "Message: ${action.error.localizedMessage}")
-            }
+            Log.e("Fetch Following", "Message: ${action.error.localizedMessage}")
         }
 
         if (action is UserDetailsAction.FetchFollowers.Reaction.Error) {
             Toast.makeText(userDetailsView.context, action.error.message.toString(), Toast.LENGTH_SHORT).show()
-            when (action.error) {
-                else -> Log.e("Fetch Followers", "Message: ${action.error.localizedMessage}")
-            }
+            Log.e("Fetch Followers", "Message: ${action.error.localizedMessage}")
         }
 
         return false

@@ -2,6 +2,7 @@ package com.example.gitaplication.di
 
 import com.example.gitaplication.repositories.rest.GitHubService
 import com.google.gson.Gson
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.kodein.di.DI
@@ -13,12 +14,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val httpModule = DI.Module("HttpModule") {
 
-    // TODO review2: move the interceptor creation and setup in a new dependency declaration of in the OkHttpClient declaration
-    val interceptor = HttpLoggingInterceptor()
-    interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+    // TODO review2 DONE: move the interceptor creation and setup in a new dependency declaration of in the OkHttpClient declaration
+
+    bind<Interceptor>() with singleton { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) }
 
     bind<OkHttpClient>() with singleton {
-        OkHttpClient.Builder().addInterceptor(interceptor).build()
+        OkHttpClient.Builder().addInterceptor(instance<Interceptor>()).build()
     }
 
     bind<Retrofit>() with singleton {

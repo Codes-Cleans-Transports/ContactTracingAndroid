@@ -62,15 +62,15 @@
         tools:layout_editor_absoluteY="107dp" />
 
 
-    <!-- TODO review2: what will happen on a device with larger screen? Find a solution with dynamic width and height -->
+    <!-- TODO review2 DONE: what will happen on a device with larger screen? Find a solution with dynamic width and height -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_list"
-        android:layout_width="370dp"
-        android:layout_height="458dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,28 +97,29 @@
         android:id="@+id/repos"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/custom_button"
         android:text="@string/repos"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/followers"
-        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_bio"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.001" />
 
     <Button
         android:id="@+id/followers"
         android:layout_width="100dp"
         android:layout_height="40dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/custom_button"
         android:text="@string/followers"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/repos"
         app:layout_constraintEnd_toStartOf="@+id/following"
-        app:layout_constraintHorizontal_bias="0.811"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_bio"
         app:layout_constraintVertical_bias="0.0" />
 

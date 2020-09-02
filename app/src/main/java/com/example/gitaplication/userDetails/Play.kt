@@ -21,7 +21,8 @@ data class UserDetailsState(
     val repos: List<Repo>? = null,
     val followers: List<UserList>? = null,
     val following: List<UserList>? = null,
-    val isItFetching: Boolean = false
+    val isItFetching: Boolean = false,
+    val AreReposFetching: Boolean=false
 )
 
 sealed class UserDetailsAction : Action {
@@ -66,7 +67,8 @@ object UserDetailsStateTransformer : StateTransformer<UserDetailsState> {
 
     override fun invoke(state: UserDetailsState, action: Action): UserDetailsState = when (action) {
         is UserDetailsAction.FetchRepos -> state.copy(
-            isItFetching = true
+            isItFetching = true,
+            AreReposFetching = true
         )
         is UserDetailsAction.FetchFollowers -> state.copy(
             isItFetching = true
@@ -75,7 +77,8 @@ object UserDetailsStateTransformer : StateTransformer<UserDetailsState> {
             isItFetching = true
         )
         is UserDetailsAction.FetchRepos.Reaction.Error -> state.copy(
-            isItFetching = false
+            isItFetching = false,
+            AreReposFetching = false
         )
         is UserDetailsAction.FetchFollowers.Reaction.Error -> state.copy(
             isItFetching = false
@@ -85,6 +88,7 @@ object UserDetailsStateTransformer : StateTransformer<UserDetailsState> {
         )
         is UserDetailsAction.FetchRepos.Reaction.Success -> state.copy(
             isItFetching = false,
+            AreReposFetching = false,
             repos = action.repos
         )
         is UserDetailsAction.FetchFollowers.Reaction.Success -> state.copy(

@@ -13,7 +13,7 @@ val roomModule = DI.Module("RoomModule") {
         Room.databaseBuilder(
             instance(),
             RoomDB::class.java,
-            " RoomDB" // TODO review2: remove the empty space at the beginning of the DB name
+            "RoomDB" // TODO review2 Done: remove the empty space at the beginning of the DB name
         )
             .fallbackToDestructiveMigration()
             .build()

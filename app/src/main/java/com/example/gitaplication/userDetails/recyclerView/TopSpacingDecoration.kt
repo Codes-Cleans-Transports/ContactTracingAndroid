@@ -1,4 +1,4 @@
-package com.example.gitaplication.userDetails.recyclerView // TODO review2: Violated java package name convention: https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html
+package com.example.gitaplication.userDetails.recyclerView // TODO review2: Violated java package name convention: https://www.oracle.com/java/technologies/javase/codeconventions-namingconventions.html  I have to manually change all the imports, but i read the page
 
 import android.graphics.Rect
 import android.view.View
