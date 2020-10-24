@@ -20,15 +20,6 @@ class BluetoothManager {
         }
     }
 
-    fun turnOff(btAdapter: BluetoothAdapter, activity: Activity?) {
-        if (btAdapter.isEnabled) {
-            btAdapter.disable()
-            Toast.makeText(activity, "Bluetooth turned OFF", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(activity, "Bluetooth already disabled", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     fun scan(bluetoothAdapter: BluetoothAdapter, activity: Activity?, mReceiver: BluetoothBroadcastReceiver) {
         bluetoothAdapter.startDiscovery()
         val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)

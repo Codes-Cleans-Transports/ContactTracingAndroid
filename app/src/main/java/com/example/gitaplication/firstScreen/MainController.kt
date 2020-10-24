@@ -50,6 +50,7 @@ class MainController : Controller(), DIAware {
     override fun onActivityStopped(activity: Activity) {
         EventBus.getDefault().unregister(this)
         super.onActivityStopped(activity)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
