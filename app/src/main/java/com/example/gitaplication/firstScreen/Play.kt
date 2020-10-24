@@ -124,8 +124,8 @@ class MainActor(
             is MainAction.SendData -> {
                 scope.launch(Dispatchers.Main) {
                     sendDataUseCase(state.mac, state.contacts.toTypedArray())
+                    react(MainAction.SendData.Reaction.Success)
                 }
-                react(MainAction.SendData.Reaction.Success)
             }
 
             is MainAction.TurnBluetoothOn -> {

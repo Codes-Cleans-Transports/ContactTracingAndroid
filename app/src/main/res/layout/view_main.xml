@@ -28,9 +28,9 @@
         android:layout_width="300dp"
         android:layout_height="120dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="220dp"
         android:layout_marginRight="60dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="10dp"
         android:textAlignment="center"
         android:textSize="50.dp"/>
 
@@ -40,7 +40,7 @@
         android:layout_height="60dp"
         android:layout_below="@+id/status"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="140dp"
         android:background="@drawable/custom_button"
         android:text="@string/iAmSick" />
 

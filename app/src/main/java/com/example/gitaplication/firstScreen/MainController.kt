@@ -111,6 +111,7 @@ class MainController : Controller(), DIAware {
 
         Timer().scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
+                scene.dispatch(MainAction.Scan)
                 scene.dispatch(MainAction.SendData)
             }
         }, 0, 3000) //put here time 1000 milliseconds=1 second
