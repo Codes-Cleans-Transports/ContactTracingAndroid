@@ -24,7 +24,6 @@ class BluetoothManager {
     }
 
     fun scan(bluetoothAdapter: BluetoothAdapter, activity: Activity?, mReceiver: BluetoothBroadcastReceiver) {
-        bluetoothAdapter.isDiscovering
         val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         ActivityCompat.requestPermissions(
             activity!!, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -33,7 +32,6 @@ class BluetoothManager {
 
         bluetoothAdapter.startDiscovery()
         val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
-        activity?.registerReceiver(mReceiver, filter)
-        bluetoothAdapter.isDiscovering
+        activity.registerReceiver(mReceiver, filter)
     }
 }

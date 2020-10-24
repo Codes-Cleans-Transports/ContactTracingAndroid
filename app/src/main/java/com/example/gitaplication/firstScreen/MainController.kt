@@ -40,7 +40,7 @@ class MainController : Controller(), DIAware {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDeviceFindEvent(deviceEventHandler: DeviceEventHandler) {
-        if (deviceEventHandler.device.name != null) scene.dispatch(MainAction.AddDevice(deviceEventHandler.device))
+        if (deviceEventHandler.device.deviceMAC != null) scene.dispatch(MainAction.AddDevice(deviceEventHandler.device))
         //Toast.makeText(activity, "We found ${deviceEventHandler.device.name}!!!!", Toast.LENGTH_SHORT).show()
     }
 
