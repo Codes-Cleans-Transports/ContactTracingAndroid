@@ -25,7 +25,12 @@ sealed class MainAction : Action {
 
     object Scan : MainAction()
 
-    class SendData(val contacts: Array<String>) : MainAction()
+    object SendData : MainAction(){
+        sealed class Reaction : com.multiplatform.play.Reaction {
+
+            object Success : Reaction()
+        }
+    }
 
     object LoadStatus : MainAction() {
 
@@ -60,6 +65,10 @@ object MainStateTransformer : StateTransformer<MainState> {
 
         is MainAction.AddDevice -> state.copy(
             contacts = state.contacts.apply { add(action.device.deviceMAC!!) }
+        )
+
+        is MainAction.SendData.Reaction.Success -> state.copy(
+            contacts = ArrayList()
         )
 
         is MainAction.LoadStatus.Reaction.Success -> state.copy(
@@ -114,8 +123,9 @@ class MainActor(
 
             is MainAction.SendData -> {
                 scope.launch(Dispatchers.Main) {
-                    sendDataUseCase(state.mac, action.contacts)
+                    sendDataUseCase(state.mac, state.contacts.toTypedArray())
                 }
+                react(MainAction.SendData.Reaction.Success)
             }
 
             is MainAction.TurnBluetoothOn -> {

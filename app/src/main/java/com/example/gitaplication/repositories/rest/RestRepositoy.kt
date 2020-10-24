@@ -10,7 +10,11 @@ class RestRepository(
     }
 
     override suspend fun submitData(mac: String, contacts: Array<String>) {
-        restService.submitData(mac,contacts)
+        try{
+            restService.submitData(mac,contacts)
+        }
+        catch (e: Throwable){
+        }
     }
 
     override suspend fun scan(mac: String): String {

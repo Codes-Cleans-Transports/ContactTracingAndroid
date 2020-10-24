@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.ThreadMode
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.instance
+import java.util.*
 
 
 class MainController : Controller(), DIAware {
@@ -75,10 +76,6 @@ class MainController : Controller(), DIAware {
 
         val getMyOwnMacUseCase = GetMyOwnMacAddressUseCase()
 
-//        beaconManager = BeaconManager.getInstanceForApplication(this)
-//        beaconManager.getBeaconParsers()
-//            .add(BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"))
-
         mainView = view.findViewById(R.id.loginView)
 
         scene = Scene(
@@ -109,6 +106,15 @@ class MainController : Controller(), DIAware {
         scene.dispatch(MainAction.LoadStatus)
 
         scene.dispatch(MainAction.TurnBluetoothOn)
+
+        scene.dispatch(MainAction.Scan)
+
+        Timer().scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                scene.dispatch(MainAction.SendData)
+            }
+        }, 0, 3000) //put here time 1000 milliseconds=1 second
+
 
         return view
     }
