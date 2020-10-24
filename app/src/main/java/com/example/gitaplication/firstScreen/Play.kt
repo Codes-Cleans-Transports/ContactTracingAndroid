@@ -50,7 +50,7 @@ object MainStateTransformer : StateTransformer<MainState> {
     override fun invoke(state: MainState, action: Action): MainState = when (action) {
 
         is MainAction.AddDevice -> state.copy(
-            contacts = state.contacts.add(action.device.deviceMAC)
+            contacts = state.contacts.apply { add(action.device.deviceMAC) }
         )
 
         is MainAction.LoadStatus.Reaction.Success -> state.copy(
