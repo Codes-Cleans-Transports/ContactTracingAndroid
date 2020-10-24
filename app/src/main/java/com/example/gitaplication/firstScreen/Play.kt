@@ -31,8 +31,6 @@ sealed class MainAction : Action {
         sealed class Reaction : com.multiplatform.play.Reaction {
 
             class Success(val status: String) : Reaction()
-
-            class Failed(val error: Throwable) : Reaction()
         }
     }
 
@@ -41,6 +39,14 @@ sealed class MainAction : Action {
     object TurnBluetoothOn : MainAction()
 
     class AddDevice(val device: Device) : MainAction()
+
+    object GetMyOwnMacAddress : MainAction() {
+
+        sealed class Reaction : com.multiplatform.play.Reaction {
+
+            class Success(val mac: String) : Reaction()
+        }
+    }
 }
 
 /* State transformer */
@@ -55,6 +61,10 @@ object MainStateTransformer : StateTransformer<MainState> {
 
         is MainAction.LoadStatus.Reaction.Success -> state.copy(
             status = action.status
+        )
+
+        is MainAction.GetMyOwnMacAddress.Reaction.Success -> state.copy(
+            mac = action.mac
         )
 
         else -> state
@@ -74,7 +84,9 @@ class MainActor(
 
     private val turnBluetoothOn: TurnBluetoothOnUseCase,
 
-    private val scanUseCase: ScanUseCase
+    private val scanUseCase: ScanUseCase,
+
+    private val getMyOwnMacAddressUseCase: GetMyOwnMacAddressUseCase
 ) : Actor<MainState> {
 
     override fun invoke(action: Action, state: MainState, react: React) {
@@ -110,6 +122,13 @@ class MainActor(
             is MainAction.Scan -> {
                 scope.launch(Dispatchers.Main) {
                     scanUseCase()
+                }
+            }
+
+            is MainAction.GetMyOwnMacAddress -> {
+                scope.launch(Dispatchers.Main) {
+                    val address = getMyOwnMacAddressUseCase.invoke()
+                    if (address != "") react(MainAction.GetMyOwnMacAddress.Reaction.Success(address))
                 }
             }
 

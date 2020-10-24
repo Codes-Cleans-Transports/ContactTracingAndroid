@@ -17,7 +17,7 @@ class LoadStatusUseCase(
             Result.Success(status)
 
         } catch (e: Exception) {
-            Result.Error(e)
+            Result.Error<String>(e)
         }
     }
 }

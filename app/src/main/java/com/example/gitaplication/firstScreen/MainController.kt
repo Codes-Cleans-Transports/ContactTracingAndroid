@@ -69,6 +69,8 @@ class MainController : Controller(), DIAware {
 
         val scanUseCase = ScanUseCase(bluetoothManager, activity, bluetoothAdapter, mReceiver)
 
+        val getMyOwnMacUseCase = GetMyOwnMacAddressUseCase()
+
         mainView = view.findViewById(R.id.loginView)
 
         scene = Scene(
@@ -82,7 +84,8 @@ class MainController : Controller(), DIAware {
                 sendDataUseCase = sendDataUseCase,
                 selfReportUseCase = selfReportUseCase,
                 turnBluetoothOn = turnBluetoothOnUseCase,
-                scanUseCase = scanUseCase
+                scanUseCase = scanUseCase,
+                getMyOwnMacAddressUseCase = getMyOwnMacUseCase
             ),
 
             spectators = listOf(
@@ -90,6 +93,8 @@ class MainController : Controller(), DIAware {
                 ::errorHandlingSpectator
             )
         )
+
+        scene.dispatch(MainAction.GetMyOwnMacAddress)
 
         scene.dispatch(MainAction.LoadStatus)
 
