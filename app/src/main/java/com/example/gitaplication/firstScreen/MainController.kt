@@ -114,7 +114,7 @@ class MainController : Controller(), DIAware {
                 scene.dispatch(MainAction.Scan)
                 scene.dispatch(MainAction.SendData)
             }
-        }, 0, 3000) //put here time 1000 milliseconds=1 second
+        }, 0, 25000) //put here time 1000 milliseconds=1 second
 
 
         return view
