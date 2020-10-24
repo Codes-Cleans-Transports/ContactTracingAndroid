@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bluelinelabs.conductor.Controller
 import com.example.gitaplication.R
 import com.example.gitaplication.firstScreen.bluetooth.BluetoothBroadcastReceiver
@@ -43,12 +44,12 @@ class MainController : Controller(), DIAware {
 
     override fun onActivityStarted(activity: Activity) {
         super.onActivityStarted(activity)
-        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this)
     }
 
     override fun onActivityStopped(activity: Activity) {
+        EventBus.getDefault().unregister(this)
         super.onActivityStopped(activity)
-        EventBus.getDefault().unregister(this);
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
@@ -94,11 +95,11 @@ class MainController : Controller(), DIAware {
             )
         )
 
+        mainView.init(scene)
+
         scene.dispatch(MainAction.GetMyOwnMacAddress)
 
         scene.dispatch(MainAction.LoadStatus)
-
-        mainView.init(scene)
 
         scene.dispatch(MainAction.TurnBluetoothOn)
 
@@ -112,6 +113,11 @@ class MainController : Controller(), DIAware {
 
     private fun errorHandlingSpectator(action: Action, state: MainState): Boolean {
 
+        when (action) {
+            is MainAction.LoadStatus.Reaction.Error -> {
+                Toast.makeText(applicationContext, "Could not load your status", Toast.LENGTH_LONG).show()
+            }
+        }
         return false
     }
 }

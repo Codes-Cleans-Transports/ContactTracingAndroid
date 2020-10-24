@@ -31,6 +31,8 @@ sealed class MainAction : Action {
         sealed class Reaction : com.multiplatform.play.Reaction {
 
             class Success(val status: String) : Reaction()
+
+            class Error(val error: Throwable) : Reaction()
         }
     }
 
@@ -97,6 +99,8 @@ class MainActor(
                 scope.launch(Dispatchers.Main) {
                     when (val result = loadStatusUseCase(state.mac)) {
                         is Result.Success -> react(MainAction.LoadStatus.Reaction.Success(result.data))
+
+                        is Result.Error -> react(MainAction.LoadStatus.Reaction.Error(result.error))
                     }
                 }
             }
