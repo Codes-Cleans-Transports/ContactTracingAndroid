@@ -32,17 +32,17 @@ class MainController : Controller(), DIAware {
         import(firstScreenModule)
     }
 
+    private val mReceiver = BluetoothBroadcastReceiver()
+
     private lateinit var mainView: MainView
 
     private lateinit var scene: Scene<MainState>
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDeviceFindEvent(deviceEventHandler: DeviceEventHandler) {
-        scene.dispatch(MainAction.AddDevice(deviceEventHandler.device))
-        Toast.makeText(activity,"We found ${deviceEventHandler.device.name}!!!!",Toast.LENGTH_SHORT).show()
+        if (deviceEventHandler.device.name != null) scene.dispatch(MainAction.AddDevice(deviceEventHandler.device))
+        //Toast.makeText(activity, "We found ${deviceEventHandler.device.name}!!!!", Toast.LENGTH_SHORT).show()
     }
-
-    private val mReceiver = BluetoothBroadcastReceiver()
 
     override fun onActivityStarted(activity: Activity) {
         super.onActivityStarted(activity)
@@ -74,6 +74,10 @@ class MainController : Controller(), DIAware {
         val scanUseCase = ScanUseCase(bluetoothManager, activity, bluetoothAdapter, mReceiver)
 
         val getMyOwnMacUseCase = GetMyOwnMacAddressUseCase()
+
+//        beaconManager = BeaconManager.getInstanceForApplication(this)
+//        beaconManager.getBeaconParsers()
+//            .add(BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"))
 
         mainView = view.findViewById(R.id.loginView)
 

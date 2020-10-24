@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import org.greenrobot.eventbus.EventBus
 
 class BluetoothBroadcastReceiver() : BroadcastReceiver() {
@@ -15,12 +14,12 @@ class BluetoothBroadcastReceiver() : BroadcastReceiver() {
 
         if (BluetoothDevice.ACTION_FOUND == action) {
 
-            val bluetoothDevice: BluetoothDevice = p1.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
+            val bluetoothDevice: BluetoothDevice? = p1.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
 
-            val deviceName = bluetoothDevice.name;
-            val deviceHardwareAddress = bluetoothDevice.address; // MAC address
+            val deviceName = bluetoothDevice?.name;
+            val deviceHardwareAddress = bluetoothDevice?.address; // MAC address
 
-            val device = Device(deviceName, deviceHardwareAddress)
+            val device = Device(deviceHardwareAddress, deviceName)
 
             val deviceEventHandler = DeviceEventHandler(device)
 
