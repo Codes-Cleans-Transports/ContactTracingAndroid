@@ -13,8 +13,4 @@ class  CoronaApplication : Application(), DIAware {
         bind<Application>() with singleton { this@CoronaApplication }
         import(applicationModule)
     }
-
-    override fun onCreate() {
-        super.onCreate()
-    }
 }

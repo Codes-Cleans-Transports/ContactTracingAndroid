@@ -16,18 +16,8 @@ class BluetoothManager {
 
             val REQUEST_ENABLE_BT = 1
 
-            activity?.startActivityForResult(intentBtEnabled, REQUEST_ENABLE_BT);
-        } else {
-            Toast.makeText(activity, "Bluetooth already enabled", Toast.LENGTH_SHORT).show();
+            activity?.startActivityForResult(intentBtEnabled, REQUEST_ENABLE_BT)
         }
-
-//        // Turning bluetooth ON without system permission
-//        if (!btAdapter.isEnabled) {
-//            btAdapter.enable()
-//            Toast.makeText(activity, "Bluetooth turned ON", Toast.LENGTH_SHORT).show()
-//        } else {
-//            Toast.makeText(activity, "Bluetooth already enabled", Toast.LENGTH_SHORT).show()
-//        }
     }
 
     fun turnOff(btAdapter: BluetoothAdapter, activity: Activity?) {
