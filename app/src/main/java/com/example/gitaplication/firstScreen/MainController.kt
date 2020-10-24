@@ -18,6 +18,7 @@ import com.multiplatform.play.Scene
 import kotlinx.coroutines.GlobalScope
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.instance
@@ -35,9 +36,10 @@ class MainController : Controller(), DIAware {
 
     private lateinit var scene: Scene<MainState>
 
-    @Subscribe
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDeviceFindEvent(deviceEventHandler: DeviceEventHandler) {
         scene.dispatch(MainAction.AddDevice(deviceEventHandler.device))
+        Toast.makeText(activity,"We found ${deviceEventHandler.device.name}!!!!",Toast.LENGTH_SHORT).show()
     }
 
     private val mReceiver = BluetoothBroadcastReceiver()
@@ -116,7 +118,7 @@ class MainController : Controller(), DIAware {
 
         when (action) {
             is MainAction.LoadStatus.Reaction.Error -> {
-                Toast.makeText(applicationContext, "Could not load your status", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Could not load your status", Toast.LENGTH_SHORT).show()
             }
         }
         return false

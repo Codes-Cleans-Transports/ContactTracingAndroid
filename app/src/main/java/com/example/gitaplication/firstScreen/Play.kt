@@ -134,7 +134,6 @@ class MainActor(
                     val address = getMyOwnMacAddressUseCase.invoke()
                     if (address != "") react(MainAction.GetMyOwnMacAddress.Reaction.Success(address))
             }
-
         }
     }
 }

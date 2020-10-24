@@ -2,15 +2,12 @@ package com.example.gitaplication.repositories.rest
 
 import com.example.gitaplication.repositories.rest.dto.StatusDto
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface CoronaService
 {
-    @POST("report_positive")
-    suspend fun submitPositive(@Query("self") mac: String)
+    @PUT("users/{mac}")
+    suspend fun submitPositive(@Path("mac") mac: String)
 
     @POST("report")
     suspend fun submitData(@Query("self") mac: String, @Query("contacts") contacts: Array<String>)
