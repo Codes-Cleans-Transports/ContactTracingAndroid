@@ -1,5 +1,6 @@
 package com.example.gitaplication.firstScreen
 
+import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,14 @@ import com.bluelinelabs.conductor.Controller
 import com.example.gitaplication.R
 import com.example.gitaplication.firstScreen.bluetooth.BluetoothBroadcastReceiver
 import com.example.gitaplication.firstScreen.bluetooth.BluetoothManager
+import com.example.gitaplication.firstScreen.bluetooth.DeviceEventHandler
 import com.example.gitaplication.firstScreen.di.firstScreenModule
 import com.example.gitaplication.firstScreen.useCases.*
 import com.multiplatform.play.Action
 import com.multiplatform.play.Scene
 import kotlinx.coroutines.GlobalScope
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.instance
@@ -30,7 +34,22 @@ class MainController : Controller(), DIAware {
 
     private lateinit var scene: Scene<MainState>
 
+    @Subscribe
+    fun onDeviceFindEvent(deviceEventHandler: DeviceEventHandler) {
+        scene.dispatch(MainAction.AddDevice(deviceEventHandler.device))
+    }
+
     private val mReceiver = BluetoothBroadcastReceiver()
+
+    override fun onActivityStarted(activity: Activity) {
+        super.onActivityStarted(activity)
+        EventBus.getDefault().register(this);
+    }
+
+    override fun onActivityStopped(activity: Activity) {
+        super.onActivityStopped(activity)
+        EventBus.getDefault().unregister(this);
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
 

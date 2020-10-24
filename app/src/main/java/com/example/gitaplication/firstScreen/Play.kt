@@ -1,5 +1,6 @@
 package com.example.gitaplication.firstScreen
 
+import com.example.gitaplication.firstScreen.bluetooth.Device
 import com.example.gitaplication.firstScreen.useCases.*
 import com.multiplatform.play.Action
 import com.multiplatform.play.Actor
@@ -14,21 +15,14 @@ import kotlinx.coroutines.launch
 /* State */
 data class MainState(
     val status: String = "Negative",
-    val mac: String = ""
+    val mac: String = "",
+    val contacts: ArrayList<String> = ArrayList()
 )
 /* Actions */
 
 sealed class MainAction : Action {
 
-    class Scan() : MainAction() {
-
-        sealed class Reaction : com.multiplatform.play.Reaction {
-
-            class Success() : Reaction()
-
-            class Failed(val error: Throwable) : Reaction()
-        }
-    }
+    object Scan : MainAction()
 
     class SendData(val contacts: Array<String>) : MainAction()
 
@@ -45,6 +39,8 @@ sealed class MainAction : Action {
     object SelfReport : MainAction()
 
     object TurnBluetoothOn : MainAction()
+
+    class AddDevice(val device: Device) : MainAction()
 }
 
 /* State transformer */
@@ -53,16 +49,8 @@ object MainStateTransformer : StateTransformer<MainState> {
 
     override fun invoke(state: MainState, action: Action): MainState = when (action) {
 
-        is MainAction.Scan -> state.copy(
-
-        )
-
-        is MainAction.Scan.Reaction.Success -> state.copy(
-
-        )
-
-        is MainAction.Scan.Reaction.Failed -> state.copy(
-
+        is MainAction.AddDevice -> state.copy(
+            contacts = state.contacts.add(action.device.deviceMAC)
         )
 
         is MainAction.LoadStatus.Reaction.Success -> state.copy(

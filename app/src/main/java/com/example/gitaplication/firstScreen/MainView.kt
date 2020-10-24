@@ -27,7 +27,7 @@ class MainView @JvmOverloads constructor(
         super.onViewCreated(view)
 
         Scan.setOnClickListener {
-            dispatchAction(MainAction.Scan())
+            dispatchAction(MainAction.Scan)
         }
 
         iAmSick.setOnClickListener{
