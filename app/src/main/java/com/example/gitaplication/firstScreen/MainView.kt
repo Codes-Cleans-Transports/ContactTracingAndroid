@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.core.statefulview.SceneView
 import com.example.gitaplication.R
 import com.example.gitaplication.util.hideKeyboard
@@ -30,7 +31,7 @@ class MainView @JvmOverloads constructor(
             dispatchAction(MainAction.Scan)
         }
 
-        iAmSick.setOnClickListener{
+        iAmSick.setOnClickListener {
             dispatchAction(MainAction.SelfReport)
         }
     }
@@ -39,6 +40,10 @@ class MainView @JvmOverloads constructor(
 
         if (diff.by { it.status }) {
             status.text = state.status
+        }
+
+        if (diff.by { it.isLoading }) {
+            progressIndicator.isVisible = state.isLoading
         }
     }
 }

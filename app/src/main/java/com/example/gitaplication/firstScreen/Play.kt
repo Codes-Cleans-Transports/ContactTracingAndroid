@@ -16,7 +16,8 @@ import kotlinx.coroutines.launch
 data class MainState(
     val status: String = "Negative",
     val mac: String = "",
-    val contacts: ArrayList<String> = ArrayList()
+    val contacts: ArrayList<String> = ArrayList(),
+    val isLoading: Boolean=false
 )
 /* Actions */
 
@@ -130,10 +131,8 @@ class MainActor(
             }
 
             is MainAction.GetMyOwnMacAddress -> {
-                scope.launch(Dispatchers.Main) {
                     val address = getMyOwnMacAddressUseCase.invoke()
                     if (address != "") react(MainAction.GetMyOwnMacAddress.Reaction.Success(address))
-                }
             }
 
         }
