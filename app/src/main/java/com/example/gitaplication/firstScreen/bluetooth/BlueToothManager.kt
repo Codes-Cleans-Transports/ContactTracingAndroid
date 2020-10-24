@@ -29,9 +29,8 @@ class BluetoothManager {
             activity!!, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
         )
-
-        bluetoothAdapter.startDiscovery()
         val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
         activity.registerReceiver(mReceiver, filter)
+        bluetoothAdapter.startDiscovery()
     }
 }
