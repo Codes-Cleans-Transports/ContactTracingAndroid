@@ -1,19 +1,5 @@
 <resources>
-    <string name="app_name">Git Application</string>
-    <string name="login">Login</string>
-    <string name="username">Username</string>
-
-    <string name="watchers_description">Repo watchers icon</string>
-    <string name="forks_description">Forks icon</string>
-    <string name="location_icon_description">Location icon</string>
-    <string name="avatar_picture_description">User\'s avatar picture</string>
-    <string name="user_item_avatar_description">User list item avatar picture</string>
-    <string name="log_out_button">Log Out</string>
-    <string name="logout_button_description">Logout button</string>
-    <string name="following">Following</string>
-    <string name="followers">Followers</string>
-    <string name="repos">Repos</string>
-    <string name="watchers">watchers:</string>
-    <string name="forks">forks:</string>
-    <string name="logout">Logout</string>
+    <string name="app_name">Corona Scan</string>
+    <string name="iAmSick">I have Corona</string>
+    <string name="scan">Scan</string>
 </resources>

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
-import com.example.gitaplication.login.LoginController
+import com.example.gitaplication.firstScreen.MainController
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         router = Conductor.attachRouter(this, findViewById(R.id.routerContainer), savedInstanceState)
 
         if (!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(LoginController()))
+            router.setRoot(RouterTransaction.with(MainController()))
         }
     }
 

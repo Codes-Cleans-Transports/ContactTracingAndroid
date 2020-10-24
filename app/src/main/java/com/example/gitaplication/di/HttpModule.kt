@@ -1,6 +1,6 @@
 package com.example.gitaplication.di
 
-import com.example.gitaplication.repositories.rest.GitHubService
+import com.example.gitaplication.repositories.rest.CoronaService
 import com.google.gson.Gson
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -13,8 +13,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val httpModule = DI.Module("HttpModule") {
-
-    // TODO review2 DONE: move the interceptor creation and setup in a new dependency declaration of in the OkHttpClient declaration
 
     bind<Interceptor>() with singleton { HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) }
 
@@ -30,12 +28,11 @@ val httpModule = DI.Module("HttpModule") {
             .build()
     }
 
-    bind<GitHubService>() with singleton {
+    bind<CoronaService>() with singleton {
         instance<Retrofit>().create(
-            GitHubService::class.java
+            CoronaService::class.java
         )
     }
 
     bind<Gson>() with singleton { Gson() }
-
 }

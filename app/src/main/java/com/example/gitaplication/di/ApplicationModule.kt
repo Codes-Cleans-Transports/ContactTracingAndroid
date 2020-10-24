@@ -8,11 +8,5 @@ val applicationModule = DI.Module("applicationModule") {
 
     import(repositoryModule)
 
-    import(persistentStorageModule)
-
-    import(accountModule)
-
-    import(roomModule)
-
     import(constantModule)
 }
