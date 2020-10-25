@@ -180,7 +180,7 @@ class MainActor(
                 handler.postDelayed({ button.text = "3" }, 2000)
                 handler.postDelayed({ button.text = "2" }, 3000)
                 handler.postDelayed({ button.text = "1" }, 4000)
-                handler.postDelayed({ button.text = "I am sure, and i know the consequences"
+                handler.postDelayed({ button.text = "I am sure"
                     button.setOnClickListener {
                         react(MainAction.ShowDialog.Reaction.SelfReport)
                     }
