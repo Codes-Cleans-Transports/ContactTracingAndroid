@@ -25,15 +25,21 @@
 
     <TextView
         android:id="@+id/safety"
-        android:layout_below="@+id/status"
         android:layout_width="300dp"
         android:layout_height="120dp"
+        android:layout_below="@+id/status"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="60dp"
         android:layout_marginBottom="10dp"
         android:textAlignment="center"
         android:textSize="30.dp" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/status"
@@ -52,7 +58,7 @@
         android:layout_height="60dp"
         android:layout_below="@+id/safety"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/custom_button"
         android:text="@string/iAmSick" />
 
@@ -68,5 +74,15 @@
         android:text="@string/message_for_positive"
         android:textAlignment="center"
         android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/url"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/iAmSick"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/view_your_connections" />
 
 </RelativeLayout>

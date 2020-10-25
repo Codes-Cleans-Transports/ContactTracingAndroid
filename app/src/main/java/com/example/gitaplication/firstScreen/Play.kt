@@ -3,10 +3,11 @@ package com.example.gitaplication.firstScreen
 import android.R
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Handler
-import android.view.View
 import android.widget.Button
+import androidx.core.content.ContextCompat.startActivity
 import com.example.gitaplication.firstScreen.bluetooth.Device
 import com.example.gitaplication.firstScreen.useCases.*
 import com.multiplatform.play.Action
@@ -31,6 +32,8 @@ data class MainState(
 sealed class MainAction : Action {
 
     object Scan : MainAction()
+
+    class GoToUrl(val context: Context) : MainAction()
 
     class ShowDialog(val context: Context) : MainAction() {
         sealed class Reaction : com.multiplatform.play.Reaction {
@@ -88,7 +91,7 @@ object MainStateTransformer : StateTransformer<MainState> {
         )
 
         is MainAction.ShowDialog.Reaction.SelfReport -> state.copy(
-            status= Status(status = "Positive", safety = "0.0")
+            status = Status(status = "positive", safety = "0.0")
         )
 
         is MainAction.GetMyOwnMacAddress.Reaction.Success -> state.copy(
@@ -135,6 +138,11 @@ class MainActor(
                 scope.launch(Dispatchers.Main) {
                     selfReportUseCase(state.mac)
                 }
+            }
+
+            is MainAction.GoToUrl->{
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://10.108.6.171:8000/${state.mac}"))
+                startActivity(action.context,browserIntent,null)
             }
 
             is MainAction.SendData -> {

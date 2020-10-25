@@ -27,12 +27,16 @@ class MainView @JvmOverloads constructor(
         iAmSick.setOnClickListener {
             dispatchAction(MainAction.ShowDialog(context))
         }
+
+        url.setOnClickListener {
+            dispatchAction(MainAction.GoToUrl(context))
+        }
     }
 
     override fun render(state: MainState, diff: Diff<MainState>) {
 
         if (diff.by { it.status }) {
-            status.text = state.status.status
+            status.text = state.status.status.capitalize()
         }
 
         if (diff.by { it.status }) {
@@ -41,7 +45,7 @@ class MainView @JvmOverloads constructor(
         }
 
         if (diff.by { it.status }) {
-            if (state.status.status == "Positive") {
+            if (state.status.status == "positive") {
                 iAmSick.visibility = View.GONE
                 message.visibility = View.VISIBLE
             }
