@@ -5,5 +5,5 @@ import org.kodein.di.with
 
 val constantModule = DI.Module("constantModule") {
 
-    constant(tag = "URL") with "http://267a96b4d2ed.ngrok.io/"
+    constant(tag = "URL") with "http://901f54fc5cc8.ngrok.io/"
 }

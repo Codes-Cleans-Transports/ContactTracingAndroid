@@ -13,7 +13,7 @@ class RestRepository(
 
     override suspend fun submitData(mac: String, contacts: Array<String>) {
         try {
-            restService.submitData(mac, contacts)
+            restService.submitData(mac, Conatacts(macs = contacts))
         } catch (e: Throwable) {
         }
     }
