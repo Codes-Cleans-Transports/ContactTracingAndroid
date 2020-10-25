@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.size
 import com.core.statefulview.SceneView
 import com.example.gitaplication.R
 import com.multiplatform.util.Diff
@@ -42,7 +43,7 @@ class MainView @JvmOverloads constructor(
         }
 
         if (diff.by { it.status }) {
-            val risk = (100.00-state.status.safety.toDouble() * 100.00)
+            val risk = (1.00-state.status.safety.toDouble()).round(3)*100
             percent.text = "$risk%"
         }
 
@@ -57,4 +58,5 @@ class MainView @JvmOverloads constructor(
 //            progressIndicator.isVisible = state.isLoading
 //        }
     }
+    fun Double.round(decimals: Int = 2): Double = "%.${decimals}f".format(this).toDouble()
 }
