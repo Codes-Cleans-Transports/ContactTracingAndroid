@@ -33,7 +33,7 @@
         android:layout_marginRight="60dp"
         android:layout_marginBottom="10dp"
         android:textAlignment="center"
-        android:textSize="50.dp" />
+        android:textSize="30.dp" />
 
     <TextView
         android:id="@+id/status"

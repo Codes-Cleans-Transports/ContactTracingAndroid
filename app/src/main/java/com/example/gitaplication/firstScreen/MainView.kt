@@ -36,8 +36,8 @@ class MainView @JvmOverloads constructor(
         }
 
         if (diff.by { it.status }) {
-            val risk = (state.status.safety.toDouble() * 100 - 1) / 100.0
-            safety.text = risk.toString()
+            val risk = (100.0-state.status.safety.toDouble() * 100) / 100.0
+            safety.text = "Your personal risk level is: $risk"
         }
 
         if (diff.by { it.status }) {
