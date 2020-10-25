@@ -9,6 +9,9 @@ class SelfReportUseCase(
     private val repository: Repository
 ) : UseCase {
     suspend operator fun invoke(mac: String) = withContext(Dispatchers.IO) {
-        repository.submitPositive(mac)
+        try {
+            repository.submitPositive(mac)
+        } catch (e: Throwable) {
+        }
     }
 }

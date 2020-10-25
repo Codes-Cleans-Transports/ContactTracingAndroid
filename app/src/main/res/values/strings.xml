@@ -2,4 +2,6 @@
     <string name="app_name">Contact Tracing</string>
     <string name="iAmSick">I have Corona</string>
     <string name="scan">Scan</string>
+    <string name="message_for_positive">Thank you for helping out and submitting that you have tested positive. We will alarm all of the people that you recently had close contact with.</string>
+    <string name="dialog_message">Are you certain that you are positive. If you confirm your action will alert all the people that you had contact with, that they may be positive too!</string>
 </resources>

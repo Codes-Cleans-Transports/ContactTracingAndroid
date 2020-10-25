@@ -4,12 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import com.core.statefulview.SceneView
 import com.example.gitaplication.R
-import com.example.gitaplication.util.hideKeyboard
 import com.multiplatform.util.Diff
 import kotlinx.android.synthetic.main.view_main.view.*
 
@@ -28,7 +25,7 @@ class MainView @JvmOverloads constructor(
         super.onViewCreated(view)
 
         iAmSick.setOnClickListener {
-            dispatchAction(MainAction.SelfReport)
+            dispatchAction(MainAction.ShowDialog(context))
         }
     }
 
@@ -38,8 +35,15 @@ class MainView @JvmOverloads constructor(
             status.text = state.status
         }
 
-        if (diff.by { it.isLoading }) {
-            progressIndicator.isVisible = state.isLoading
+        if (diff.by { it.status }) {
+            if (state.status == "Positive") {
+                iAmSick.visibility = View.GONE
+                message.visibility = View.VISIBLE
+            }
         }
+
+//        if (diff.by { it.isLoading }) {
+//            progressIndicator.isVisible = state.isLoading
+//        }
     }
 }

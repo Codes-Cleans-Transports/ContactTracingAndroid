@@ -1,5 +1,12 @@
 package com.example.gitaplication.firstScreen
 
+import android.R
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
+import android.os.Handler
+import android.view.View
+import android.widget.Button
 import com.example.gitaplication.firstScreen.bluetooth.Device
 import com.example.gitaplication.firstScreen.useCases.*
 import com.multiplatform.play.Action
@@ -17,7 +24,7 @@ data class MainState(
     val status: String = "Negative",
     val mac: String = "",
     val contacts: ArrayList<String> = ArrayList(),
-    val isLoading: Boolean=false
+    val isLoading: Boolean = false
 )
 /* Actions */
 
@@ -25,7 +32,14 @@ sealed class MainAction : Action {
 
     object Scan : MainAction()
 
-    object SendData : MainAction(){
+    class ShowDialog(val context: Context) : MainAction() {
+        sealed class Reaction : com.multiplatform.play.Reaction {
+
+            object SelfReport : Reaction()
+        }
+    }
+
+    object SendData : MainAction() {
         sealed class Reaction : com.multiplatform.play.Reaction {
 
             object Success : Reaction()
@@ -41,8 +55,6 @@ sealed class MainAction : Action {
             class Error(val error: Throwable) : Reaction()
         }
     }
-
-    object SelfReport : MainAction()
 
     object TurnBluetoothOn : MainAction()
 
@@ -73,6 +85,10 @@ object MainStateTransformer : StateTransformer<MainState> {
 
         is MainAction.LoadStatus.Reaction.Success -> state.copy(
             status = action.status
+        )
+
+        is MainAction.ShowDialog.Reaction.SelfReport -> state.copy(
+            status = "Positive"
         )
 
         is MainAction.GetMyOwnMacAddress.Reaction.Success -> state.copy(
@@ -115,7 +131,7 @@ class MainActor(
                 }
             }
 
-            is MainAction.SelfReport -> {
+            is MainAction.ShowDialog.Reaction.SelfReport -> {
                 scope.launch(Dispatchers.Main) {
                     selfReportUseCase(state.mac)
                 }
@@ -141,8 +157,34 @@ class MainActor(
             }
 
             is MainAction.GetMyOwnMacAddress -> {
-                    val address = getMyOwnMacAddressUseCase.invoke()
-                    if (address != "") react(MainAction.GetMyOwnMacAddress.Reaction.Success(address))
+                val address = getMyOwnMacAddressUseCase.invoke()
+                if (address != "") react(MainAction.GetMyOwnMacAddress.Reaction.Success(address))
+            }
+
+            is MainAction.ShowDialog -> {
+                val handler = Handler()
+
+               val dialog = AlertDialog.Builder(action.context)
+                    .setTitle("I have tested positive")
+                    .setMessage(action.context.getString(com.example.gitaplication.R.string.dialog_message))
+                    .setPositiveButton("5", null)
+                   .setNegativeButton("I am not quite sure" ,null)
+                    .setIcon(R.drawable.ic_dialog_alert)
+                    .create()
+
+                dialog.show()
+
+                val button: Button = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                //button.visibility = View.INVISIBLE
+                handler.postDelayed({ button.text = "4" }, 1000)
+                handler.postDelayed({ button.text = "3" }, 2000)
+                handler.postDelayed({ button.text = "2" }, 3000)
+                handler.postDelayed({ button.text = "1" }, 4000)
+                handler.postDelayed({ button.text = "I am sure, and i know the consequences"
+                    button.setOnClickListener {
+                        react(MainAction.ShowDialog.Reaction.SelfReport)
+                    }
+                }, 5000)
             }
         }
     }
