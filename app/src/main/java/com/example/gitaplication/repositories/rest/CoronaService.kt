@@ -13,5 +13,5 @@ interface CoronaService
     suspend fun submitData(@Query("self") mac: String, @Query("contacts") contacts: Array<String>)
 
     @GET("users/{mac}")
-    suspend fun scan(@Path("mac") mac: String): Response<StatusDto>
+    suspend fun loadStatus(@Path("mac") mac: String): Response<StatusDto>
 }

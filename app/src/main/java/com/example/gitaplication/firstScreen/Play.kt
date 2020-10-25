@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 /* State */
 data class MainState(
-    val status: String = "Negative",
+    val status: Status = Status(status = "Negative", safety = "1.0"),
     val mac: String = "",
     val contacts: ArrayList<String> = ArrayList(),
     val isLoading: Boolean = false
@@ -50,7 +50,7 @@ sealed class MainAction : Action {
 
         sealed class Reaction : com.multiplatform.play.Reaction {
 
-            class Success(val status: String) : Reaction()
+            class Success(val status: Status) : Reaction()
 
             class Error(val error: Throwable) : Reaction()
         }
@@ -88,7 +88,7 @@ object MainStateTransformer : StateTransformer<MainState> {
         )
 
         is MainAction.ShowDialog.Reaction.SelfReport -> state.copy(
-            status = "Positive"
+            status= Status(status = "Positive", safety = "0.0")
         )
 
         is MainAction.GetMyOwnMacAddress.Reaction.Success -> state.copy(
@@ -164,11 +164,12 @@ class MainActor(
             is MainAction.ShowDialog -> {
                 val handler = Handler()
 
-               val dialog = AlertDialog.Builder(action.context)
+                val dialog = AlertDialog.Builder(action.context)
                     .setTitle("I have tested positive")
+                    .setCancelable(false)
                     .setMessage(action.context.getString(com.example.gitaplication.R.string.dialog_message))
                     .setPositiveButton("5", null)
-                   .setNegativeButton("I am not quite sure" ,null)
+                    .setNegativeButton("I am not quite sure", null)
                     .setIcon(R.drawable.ic_dialog_alert)
                     .create()
 
@@ -180,9 +181,11 @@ class MainActor(
                 handler.postDelayed({ button.text = "3" }, 2000)
                 handler.postDelayed({ button.text = "2" }, 3000)
                 handler.postDelayed({ button.text = "1" }, 4000)
-                handler.postDelayed({ button.text = "I am sure"
+                handler.postDelayed({
+                    button.text = "I am sure"
                     button.setOnClickListener {
                         react(MainAction.ShowDialog.Reaction.SelfReport)
+                        dialog.dismiss()
                     }
                 }, 5000)
             }

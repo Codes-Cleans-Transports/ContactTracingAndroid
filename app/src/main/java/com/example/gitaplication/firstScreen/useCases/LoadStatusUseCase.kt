@@ -1,5 +1,6 @@
 package com.example.gitaplication.firstScreen.useCases
 
+import com.example.gitaplication.firstScreen.Status
 import com.example.gitaplication.repositories.Repository
 import com.multiplatform.util.Result
 import com.multiplatform.util.UseCase
@@ -10,14 +11,14 @@ class LoadStatusUseCase(
     private val repository: Repository
 ) : UseCase {
 
-    suspend operator fun invoke(mac: String): Result<String> = withContext(Dispatchers.IO) {
+    suspend operator fun invoke(mac: String): Result<Status> = withContext(Dispatchers.IO) {
         try {
-            val status = repository.scan(mac)
+            val status = repository.loadStatus(mac)
 
             Result.Success(status)
 
         } catch (e: Exception) {
-            Result.Error<String>(e)
+            Result.Error<Status>(e)
         }
     }
 }

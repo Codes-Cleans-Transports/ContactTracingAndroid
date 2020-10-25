@@ -32,11 +32,16 @@ class MainView @JvmOverloads constructor(
     override fun render(state: MainState, diff: Diff<MainState>) {
 
         if (diff.by { it.status }) {
-            status.text = state.status
+            status.text = state.status.status
         }
 
         if (diff.by { it.status }) {
-            if (state.status == "Positive") {
+            val risk = (state.status.safety.toDouble() * 100 - 1) / 100.0
+            safety.text = risk.toString()
+        }
+
+        if (diff.by { it.status }) {
+            if (state.status.status == "Positive") {
                 iAmSick.visibility = View.GONE
                 message.visibility = View.VISIBLE
             }
