@@ -31,6 +31,8 @@ class MainView @JvmOverloads constructor(
         url.setOnClickListener {
             dispatchAction(MainAction.GoToUrl(context))
         }
+
+        safety.text = "Your personal risk level is: "
     }
 
     override fun render(state: MainState, diff: Diff<MainState>) {
@@ -40,13 +42,13 @@ class MainView @JvmOverloads constructor(
         }
 
         if (diff.by { it.status }) {
-            val risk = (100.0-state.status.safety.toDouble() * 100) / 100.0
-            safety.text = "Your personal risk level is: $risk"
+            val risk = (100.00-state.status.safety.toDouble() * 100.00)
+            percent.text = "$risk%"
         }
 
         if (diff.by { it.status }) {
             if (state.status.status == "positive") {
-                iAmSick.visibility = View.GONE
+                iAmSick.visibility = View.INVISIBLE
                 message.visibility = View.VISIBLE
             }
         }

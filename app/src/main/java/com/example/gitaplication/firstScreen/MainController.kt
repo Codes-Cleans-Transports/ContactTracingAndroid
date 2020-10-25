@@ -114,13 +114,13 @@ class MainController : Controller(), DIAware {
                 scene.dispatch(MainAction.Scan)
                 scene.dispatch(MainAction.SendData)
             }
-        }, 0, 25000) //put here time 1000 milliseconds=1 second
+        }, 0, 15000) //put here time 1000 milliseconds=1 second
 
         Timer().scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 scene.dispatch(MainAction.LoadStatus)
             }
-        }, 0, 30000)
+        }, 0, 5000)
 
         return view
     }

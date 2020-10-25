@@ -141,7 +141,7 @@ class MainActor(
             }
 
             is MainAction.GoToUrl->{
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://10.108.6.171:8000/${state.mac}"))
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://10.108.6.171:8000/"))
                 startActivity(action.context,browserIntent,null)
             }
 
